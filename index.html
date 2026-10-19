@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16325c">
+<title>棒球訓練手冊</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23fff' stroke='%2316325c' stroke-width='2'/%3E%3Cpath d='M9 6c3 2.6 4.6 6 4.6 10S12 23.4 9 26M23 6c-3 2.6-4.6 6-4.6 10s1.6 7.4 4.6 10' fill='none' stroke='%23c8102e' stroke-width='2'/%3E%3C/svg%3E">
+<meta name="apple-mobile-web-app-title" content="棒球訓練">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<style>
+:root{
+  --bg:#f5f2eb;--card:#fff;--ink:#1b2333;--muted:#667085;--line:#e4dfd3;
+  --navy:#16325c;--navy-ink:#fff;--accent:#c8102e;--chip:#edf0f5;--chip-on:#16325c;--chip-on-ink:#fff;
+  --dl:#f59e0b;--local:#7c3aed;--ok:#15803d;--shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
+  --r:14px;--nav-h:62px;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0e131b;--card:#171f2b;--ink:#e7ebf1;--muted:#98a2b3;--line:#273142;--navy:#0f2547;--navy-ink:#eef3ff;
+    --accent:#ff5c72;--chip:#222c3b;--chip-on:#9db8ff;--chip-on-ink:#0e131b;--shadow:none}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 12px)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:860px;margin:0 auto;padding:0 14px}
+header.top{position:sticky;top:0;z-index:20;background:var(--navy);color:var(--navy-ink);padding:calc(env(safe-area-inset-top) + 10px) 0 10px}
+header.top .wrap{display:flex;align-items:center;gap:10px}
+.logo{width:30px;height:30px;flex:none}
+header.top h1{font-size:18px;margin:0;letter-spacing:.5px}
+header.top .sub{font-size:12px;opacity:.75}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--line);
+  display:flex;padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:var(--nav-h);
+  text-decoration:none;font-size:12px;color:var(--muted)}
+nav.tabs a svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs a.on{color:var(--accent);font-weight:600}
+@media (min-width:768px){
+  body{padding-bottom:24px}
+  nav.tabs{position:sticky;top:var(--hdr,58px);bottom:auto;border-top:0;border-bottom:1px solid var(--line);z-index:19}
+  nav.tabs a{flex-direction:row;height:46px;font-size:14px;gap:6px}
+  nav.tabs a svg{width:18px;height:18px}
+}
+main{padding-top:14px;min-height:60vh}
+h2.view-title{font-size:20px;margin:4px 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid transparent;background:var(--chip);border-radius:999px;padding:6px 12px;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--chip-on);color:var(--chip-on-ink)}
+.chip .n{opacity:.6;font-size:12px;margin-left:3px}
+.seg{display:flex;background:var(--chip);border-radius:12px;padding:3px;gap:3px;margin-bottom:10px}
+.seg button{flex:1;border:0;background:none;border-radius:9px;padding:8px 6px;font-size:14px;cursor:pointer;white-space:nowrap}
+.seg button.on{background:var(--card);box-shadow:var(--shadow);font-weight:600}
+.search{position:sticky;top:var(--hdr,58px);z-index:10;background:var(--bg);padding:6px 0 4px}
+@media (min-width:768px){.search{top:calc(var(--hdr,58px) + 46px)}}
+.search input{width:100%;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:11px 14px 11px 38px;font-size:16px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%23889' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='8' cy='8' r='6'/%3E%3Cpath d='m13 13 4 4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:12px center}
+.filters{display:flex;gap:8px;align-items:center;margin:4px 0 6px}
+.filters select{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:6px 8px;font-size:14px}
+.count{font-size:13px;color:var(--muted);margin:6px 2px 8px}
+.list{display:grid;gap:10px}
+@media (min-width:768px){.list.grid2{grid-template-columns:1fr 1fr}}
+a.item{display:block;text-decoration:none;padding:12px 14px}
+a.item:active{transform:scale(.995)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px}
+.num{font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.tag{display:inline-block;border-radius:6px;padding:1px 7px;font-size:12px;background:var(--chip)}
+.tag.src-dl{background:color-mix(in srgb,var(--dl) 20%,transparent);color:color-mix(in srgb,var(--dl) 70%,var(--ink))}
+.tag.src-local{background:color-mix(in srgb,var(--local) 18%,transparent);color:color-mix(in srgb,var(--local) 70%,var(--ink))}
+.tag.warn{background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
+.vid{margin-left:auto;font-size:12px;color:var(--accent);font-weight:600}
+a.item h3{font-size:16px;margin:5px 0 2px}
+a.item h3 small,.en{font-weight:400;color:var(--muted);font-size:13px;margin-left:4px}
+a.item .kp{margin:2px 0 0;font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+a.item .note{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+/* menus */
+.group{padding:14px;margin-bottom:12px}
+.group h3{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:8px}
+ol.steps{list-style:none;margin:0;padding:0;position:relative}
+ol.steps>li{display:flex;gap:12px;position:relative;padding-bottom:14px}
+ol.steps>li:not(:last-child)::before{content:"";position:absolute;left:13px;top:28px;bottom:0;width:2px;background:var(--line)}
+.step-n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--navy);color:var(--navy-ink);display:grid;place-items:center;font-size:13px;font-weight:700}
+@media (prefers-color-scheme:dark){.step-n{background:var(--chip-on);color:var(--chip-on-ink)}}
+.step-b{flex:1;min-width:0;padding-top:3px}
+.step-b h4{margin:0;font-size:15px}
+.step-b .note{font-size:13px;color:var(--muted);margin:2px 0 0}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center}
+a.pill{text-decoration:none;border:1px solid var(--line);background:var(--bg);border-radius:9px;padding:4px 9px;font-size:13px;max-width:100%}
+a.pill b{color:var(--accent);margin-right:3px}
+.any{font-size:11px;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:1px 6px}
+.branch{margin-top:8px;padding:8px 10px;border-left:3px solid var(--line);background:color-mix(in srgb,var(--chip) 60%,transparent);border-radius:0 9px 9px 0}
+.branch .bt{font-size:14px;font-weight:600}
+.branch .tag{margin-right:6px}
+/* driveline */
+.weeks{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.weeks button{flex:none;min-width:46px;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:6px 8px;cursor:pointer;font-weight:600}
+.weeks button.on{background:var(--chip-on);color:var(--chip-on-ink);border-color:transparent}
+.phase{font-size:13px;color:var(--muted);margin:6px 2px 8px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:14px}
+.day{border:0;border-radius:10px;padding:7px 2px;min-height:62px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  background:var(--wc,var(--chip));color:var(--wt,var(--muted));font-size:13px;font-weight:700;line-height:1.2;text-align:center}
+.day small{font-size:10px;font-weight:500;opacity:.8}
+.day.rest{background:var(--chip);color:var(--muted);font-weight:500}
+.day.on{outline:3px solid var(--ink);outline-offset:1px}
+.workout{overflow:hidden;margin-bottom:12px}
+.workout>header{padding:12px 14px;background:var(--wc);color:var(--wt)}
+.workout>header h3{margin:0;font-size:17px}
+.workout>header small{opacity:.85}
+.wbody{padding:12px 14px}
+.wbody details{margin-bottom:8px}
+.wbody summary{cursor:pointer;font-size:14px;color:var(--muted)}
+.wstats{display:flex;gap:12px;font-size:13px;color:var(--muted);margin:4px 0 6px;flex-wrap:wrap}
+.seg-title{font-size:13px;font-weight:700;letter-spacing:1px;color:var(--muted);margin:12px 0 6px;text-transform:uppercase}
+ul.drills{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+li.drill{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--bg)}
+li.drill.done{opacity:.55}
+li.drill.done .dname{text-decoration:line-through}
+li.drill input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--ok);flex:none}
+.dmain{flex:1;min-width:0}
+.dname{font-weight:600;text-decoration:none}
+.dmeta{font-size:13px;color:var(--muted);margin-top:2px}
+.subst{font-size:12px;color:var(--ok);margin-top:2px}
+.dnum{flex:none;text-align:right}
+.dnum b{display:block;font-size:17px;font-variant-numeric:tabular-nums}
+.int{font-size:12px;color:var(--muted)}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:9px 14px;cursor:pointer;font-size:14px}
+.btn.primary{background:var(--navy);color:var(--navy-ink);border-color:transparent}
+@media (prefers-color-scheme:dark){.btn.primary{background:var(--chip-on);color:var(--chip-on-ink)}}
+.btn.danger{color:var(--accent)}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.eq{padding:12px 14px}
+.eq h4{margin:0;font-size:15px}
+/* learn */
+details.article{padding:0;margin-bottom:10px}
+details.article>summary{list-style:none;cursor:pointer;padding:13px 14px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+details.article>summary::-webkit-details-marker{display:none}
+details.article>summary::after{content:"＋";margin-left:auto;color:var(--muted)}
+details.article[open]>summary::after{content:"－"}
+.abody{padding:0 14px 14px;font-size:15px}
+.abody p{margin:0 0 10px}
+.abody .hd{font-weight:700;color:var(--navy)}
+@media (prefers-color-scheme:dark){.abody .hd{color:var(--chip-on)}}
+details.orig{margin-top:6px;border-top:1px dashed var(--line);padding-top:8px}
+details.orig summary{cursor:pointer;font-size:13px;color:var(--muted)}
+details.orig p{font-size:13px;color:var(--muted)}
+.intro{padding:14px;margin-bottom:12px}
+.intro p{margin:0 0 8px}
+/* form */
+form.card{padding:14px;display:grid;gap:12px}
+label.f{display:grid;gap:4px;font-size:14px;font-weight:600}
+label.f input,label.f select,label.f textarea{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 11px;font-size:16px;font-weight:400}
+label.f textarea{min-height:70px;resize:vertical}
+.hint{font-size:13px;color:var(--muted);font-weight:400}
+/* sheet */
+.sheet-bg{position:fixed;inset:0;background:rgba(10,15,25,.45);z-index:40;opacity:0;pointer-events:none;transition:opacity .2s}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;background:var(--card);border-radius:18px 18px 0 0;max-height:92vh;overflow:auto;
+  transform:translateY(100%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s;padding-bottom:env(safe-area-inset-bottom);overscroll-behavior:contain}
+.sheet.open{transform:none;visibility:visible;transition:transform .25s ease}.sheet-bg.open{opacity:1;pointer-events:auto}
+@media (min-width:768px){.sheet{left:50%;width:640px;margin-left:-320px;bottom:auto;top:6vh;border-radius:18px;max-height:88vh;transform:translateY(20px);opacity:0;pointer-events:none;transition:.2s}
+  .sheet.open{transform:none;opacity:1;pointer-events:auto}}
+.sheet-h{position:sticky;top:0;background:var(--card);display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line);z-index:1}
+.sheet-h .x{margin-left:auto;border:0;background:var(--chip);border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:18px;line-height:1}
+.sheet-c{padding:14px}
+.sheet-c h2{margin:4px 0 2px;font-size:21px}
+.sec{margin-top:16px}
+.sec h4{margin:0 0 6px;font-size:13px;color:var(--muted);letter-spacing:1px}
+.sec p{margin:0}
+.video{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:16/9}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video button{position:absolute;inset:0;border:0;background:linear-gradient(135deg,#16325c,#0b1a33);color:#fff;font-size:16px;cursor:pointer;display:grid;place-items:center}
+.video button span{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);padding:10px 18px;border-radius:999px}
+.vlinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+a.ext{display:inline-flex;align-items:center;gap:6px;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:14px;font-weight:600}
+a.ext.ig{color:#c13584}a.ext.fb{color:#1877f2}a.ext.yt{color:#e00}
+ul.usage{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+ul.usage a{display:block;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:14px}
+footer.foot{max-width:860px;margin:24px auto 0;padding:0 14px;font-size:12px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + 20px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);
+  padding:9px 16px;border-radius:999px;font-size:14px;opacity:0;transition:.2s;z-index:60;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#fff"/><path d="M8.5 6.5c3 2.6 4.6 6 4.6 9.5s-1.6 6.9-4.6 9.5M23.5 6.5c-3 2.6-4.6 6-4.6 9.5s1.6 6.9 4.6 9.5" fill="none" stroke="#c8102e" stroke-width="1.6" stroke-dasharray="2 1.6"/></svg>
+    <div><h1>棒球訓練手冊</h1><div class="sub" id="sub"></div></div>
+  </div>
+</header>
+<nav class="tabs" id="tabs"></nav>
+<main class="wrap" id="app"></main>
+<footer class="foot wrap" id="foot"></footer>
+<div class="sheet-bg" id="sheetBg"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast"></div>
+
+<script type="application/json" id="data">{"builtAt":"2026-10-19","items":[{"id":"1","num":"1","source":"教練","name":"打擊髖旋轉","nameEn":"","purpose":"打擊","part":"髖","keyPoints":"順序的重要性","videos":["https://www.instagram.com/reel/DZnHgApTt4I/?igsh=b3IzbHk4ODYyYzdk"],"note":"","related":[],"equipment":[]},{"id":"2","num":"2","source":"教練","name":"打擊上肢啟動","nameEn":"","purpose":"打擊","part":"胸椎、手","keyPoints":"上肢啟動與框架","videos":["https://www.facebook.com/share/r/1EVkbyoJ7e/?mibextid=wwXIfr"],"note":"","related":[],"equipment":[]},{"id":"3","num":"3","source":"教練","name":"投球腳步","nameEn":"","purpose":"投球","part":"全身","keyPoints":"腳步與身體的連結","videos":["https://www.facebook.com/share/r/17ft4VpgJg/?mibextid=wwXIfr"],"note":"","related":[],"equipment":[]},{"id":"4","num":"4","source":"教練","name":"手臂的角度","nameEn":"","purpose":"投球","part":"上肢","keyPoints":"手臂與軀幹相對角度","videos":["https://youtube.com/shorts/HsmklSP1WLY?si=sqJScExzC1eH6gh9"],"note":"","related":[],"equipment":[]},{"id":"5","num":"5","source":"教練","name":"守備如何啟動","nameEn":"","purpose":"守備","part":"下肢","keyPoints":"單腳啟動","videos":["https://www.facebook.com/share/r/14SjXvUSoUF/?mibextid=wwXIfr"],"note":"","related":[],"equipment":[]},{"id":"6","num":"6","source":"教練","name":"守備腳步速度","nameEn":"","purpose":"守備","part":"下肢","keyPoints":"加速、碎步、加速","videos":["https://www.instagram.com/reel/DSj_Y5mj2z_/?igsh=M3ZlbHI0dWthN3ly"],"note":"","related":[],"equipment":[]},{"id":"7","num":"7","source":"教練","name":"內野跪接","nameEn":"","purpose":"內野守備","part":"上肢","keyPoints":"確定手套面的方向","videos":["https://m.youtube.com/watch?v=LRmfX3ZjD9Y&fbclid=IwQ0xDSwP5Hs5leHRuA2FlbQIxMQBzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEejYKyHkfNRFBPoSQ6Fsla2m6MhpVZ5iaaCwU5V15ZmpmOzw4ZFzmeywbn_Mk_aem_QmbG2-rH3VZBRd0uKhVQJA"],"note":"","related":[],"equipment":[]},{"id":"8","num":"8","source":"教練","name":"林教練身體操作熱身1","nameEn":"","purpose":"身體操控","part":"全身","keyPoints":"熱身活化身體，注意身體順序","videos":["https://youtube.com/playlist?list=PLA_BN2EDY6-USwRdQkqnE_Z-Qd8ZdylS1&si=hhLjKF_9BaLe_C5k"],"note":"","related":[],"equipment":[]},{"id":"9","num":"9","source":"教練","name":"馬克操","nameEn":"","purpose":"身體操控","part":"下肢","keyPoints":"中軸穩定操作髖","videos":[],"note":"新生先做A、B","related":[],"equipment":[]},{"id":"10","num":"10","source":"教練","name":"二壘雙殺腳步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"注意左右腳","videos":["https://www.instagram.com/p/DZMx3TgTg-N/"],"note":"","related":[],"equipment":[]},{"id":"11","num":"11","source":"教練","name":"左投牽制視角","nameEn":"","purpose":"跑壘","part":"全身","keyPoints":"看腳到哪還可以牽制","videos":["https://www.instagram.com/p/DY4mp_hPq0T/"],"note":"","related":[],"equipment":[]},{"id":"12","num":"12","source":"教練","name":"外野畫圓滾地","nameEn":"","purpose":"外野守備","part":"全身","keyPoints":"重心的穩定","videos":["https://www.instagram.com/p/DWBM9J6EcUI/"],"note":"","related":[],"equipment":[]},{"id":"13","num":"13","source":"教練","name":"內野反手接球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"虎口位置，畫圓正手轉反手","videos":["https://www.instagram.com/p/DUvFI_aExG-/"],"note":"","related":[],"equipment":[]},{"id":"14","num":"14","source":"教練","name":"跑傳腳步","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"曲髖要維持好","videos":["https://www.instagram.com/p/DULzow6ES8M/"],"note":"","related":[],"equipment":[]},{"id":"15","num":"15","source":"教練","name":"移動啟動方式","nameEn":"","purpose":"身體操控","part":"全身","keyPoints":"，往後往前時注意重心找到好的啟動模式","videos":["https://www.instagram.com/p/DRyLifKjsGu/"],"note":"","related":[],"equipment":[]},{"id":"16","num":"16","source":"教練","name":"傳接球手套面","nameEn":"","purpose":"守備","part":"上肢","keyPoints":"手軸角度，虎口方向","videos":["https://www.instagram.com/p/DSCpwEqAQBY/"],"note":"","related":[],"equipment":[]},{"id":"17","num":"17","source":"教練","name":"觸殺手套操作","nameEn":"","purpose":"內野守備","part":"上肢","keyPoints":"手套由上往下","videos":["https://www.instagram.com/p/DSIuoxhgXd3/"],"note":"","related":[],"equipment":[]},{"id":"18","num":"18","source":"教練","name":"跑圓接球","nameEn":"","purpose":"守備","part":"全身","keyPoints":"變向、加速","videos":["https://www.instagram.com/p/DPej9OigEDX/"],"note":"","related":[],"equipment":[]},{"id":"19","num":"19","source":"教練","name":"跪接","nameEn":"","purpose":"內野守備","part":"上肢","keyPoints":"虎口方向","videos":["https://www.instagram.com/p/DRgFbEREYAb/"],"note":"後流程可以繼續做","related":[],"equipment":[]},{"id":"20","num":"20","source":"教練","name":"打擊後手啟動","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"相對角度","videos":["https://www.instagram.com/p/DPFZSaSko6M/"],"note":"","related":[],"equipment":[]},{"id":"21","num":"21","source":"教練","name":"內野碎步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"髖去操作","videos":["https://www.instagram.com/p/DRU3JiFjiLl/"],"note":"","related":[],"equipment":[]},{"id":"22","num":"22","source":"教練","name":"跑壘踩三壘","nameEn":"","purpose":"跑壘","part":"下肢","keyPoints":"壘包踩的位置","videos":["https://www.instagram.com/p/DQRZBZ7E2pm/"],"note":"","related":[],"equipment":[]},{"id":"23","num":"23","source":"教練","name":"如何放手套","nameEn":"","purpose":"守備","part":"上肢","keyPoints":"虎口位置","videos":["https://www.instagram.com/p/DOo62y0jdBM/"],"note":"新生先備知識","related":[],"equipment":[]},{"id":"24","num":"24","source":"教練","name":"8字繞圈接球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"視線水平","videos":["https://www.instagram.com/p/DP-EoAfCWIQ/"],"note":"時間少熱身可以用","related":[],"equipment":[]},{"id":"25","num":"25","source":"教練","name":"左右後彈跳接球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"丟球彈跳高度要掌握好","videos":["https://www.instagram.com/p/DPjMrHxjh_R/"],"note":"","related":[],"equipment":[]},{"id":"26","num":"26","source":"教練","name":"守備蹲姿","nameEn":"","purpose":"守備","part":"下肢","keyPoints":"膝蓋朝外，膝蓋與腳踝的相對位置","videos":["https://www.instagram.com/p/DMAa9v2TX0b/"],"note":"新生先備知識","related":[],"equipment":[]},{"id":"27","num":"27","source":"教練","name":"看球切入","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"看球滾時自身的角度與位置，斜切","videos":["https://www.instagram.com/p/DMPxQN9OzXM/"],"note":"角錐","related":[],"equipment":[]},{"id":"28","num":"28","source":"教練","name":"游擊丟二壘","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"手丟完往目標去","videos":["https://www.instagram.com/p/DM8QTR8OXJM/"],"note":"","related":[],"equipment":[]},{"id":"29","num":"29","source":"教練","name":"二壘雙殺腳步2","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"注意左右腳","videos":["https://www.instagram.com/henhenhenphoto/saved/all-posts/"],"note":"","related":[],"equipment":[]},{"id":"30","num":"30","source":"教練","name":"啟動單腳","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"反向單腳著地","videos":["https://www.instagram.com/p/DOev1VoD6GX/"],"note":"","related":[],"equipment":[]},{"id":"31","num":"31","source":"教練","name":"如何放手套2","nameEn":"","purpose":"守備","part":"上肢","keyPoints":"虎口位置","videos":["https://www.instagram.com/p/DNJshZgO7sf/"],"note":"","related":[],"equipment":[]},{"id":"32","num":"32","source":"教練","name":"三壘防守","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"手套與身體的位置","videos":["https://www.instagram.com/p/DOQb-9igUvw/"],"note":"","related":[],"equipment":[]},{"id":"33","num":"33","source":"教練","name":"內野接彈地球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"左腳、手套、右腳的位置","videos":["https://www.instagram.com/p/DOlJSWZAVtZ/"],"note":"","related":[],"equipment":[]},{"id":"34","num":"34","source":"教練","name":"內野接右側彈地球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"啟動移動的腳步","videos":["https://www.instagram.com/p/DKO4C8lztO9/"],"note":"學姊先備知識","related":[],"equipment":[]},{"id":"35","num":"35","source":"教練","name":"跑傳腳步","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"右腳、左腳手套、右腳","videos":["https://www.instagram.com/p/DKDTgWWBwXl/"],"note":"","related":[],"equipment":[]},{"id":"35-2","num":"35","source":"教練","name":"跪接到踩","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"運動員姿勢要做好","videos":["https://www.instagram.com/p/DCz1zEgSMSb/"],"note":"新生先做","related":[],"equipment":[]},{"id":"36","num":"36","source":"教練","name":"外野滾地傳球","nameEn":"","purpose":"外野守備","part":"全身","keyPoints":"腳步","videos":["https://www.instagram.com/p/DEWbTmzuC88/"],"note":"外野模板","related":[],"equipment":[]},{"id":"37","num":"37","source":"教練","name":"內野接球腳步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"右腳、手套、左腳","videos":["https://www.instagram.com/p/DTRioZeEs8U/"],"note":"新生先備知識","related":[],"equipment":[]},{"id":"38","num":"38","source":"教練","name":"內野接球腳步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"腳步位置","videos":["https://www.facebook.com/reel/1196835945714313"],"note":"基礎菜單","related":[],"equipment":[]},{"id":"39","num":"39","source":"教練","name":"內野接球腳步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"右腳、手套、左腳","videos":["https://www.instagram.com/p/DSESuqtEsdV/"],"note":"新生先備知識","related":[],"equipment":[]},{"id":"40","num":"40","source":"教練","name":"外野接球腳步","nameEn":"","purpose":"外野守備","part":"下肢","keyPoints":"接球位置","videos":["https://www.instagram.com/p/DPSaId5EsFS/"],"note":"上半身有續力","related":[],"equipment":[]},{"id":"41","num":"41","source":"教練","name":"打擊站姿","nameEn":"","purpose":"打擊","part":"下肢","keyPoints":"膝蓋方向","videos":["https://www.instagram.com/p/DOZ-bfYkgc8/"],"note":"","related":[],"equipment":[]},{"id":"42","num":"42","source":"教練","name":"打擊上下肢連結","nameEn":"","purpose":"打擊","part":"全身","keyPoints":"髖與上肢的連結","videos":["https://www.instagram.com/p/DN10YJo5KRa/"],"note":"","related":[],"equipment":[]},{"id":"43","num":"43","source":"教練","name":"二游拋球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"重心、拋球手腕方向","videos":["https://www.instagram.com/p/DYcarcJBysH/"],"note":"","related":[],"equipment":[]},{"id":"44","num":"44","source":"教練","name":"內野啟動發力","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"髖要撐住","videos":["https://www.instagram.com/p/DZaXKQtORUb/"],"note":"新生多玩","related":[],"equipment":[]},{"id":"45","num":"45","source":"教練","name":"打擊髖續力","nameEn":"","purpose":"打擊","part":"下肢","keyPoints":"髖旋轉","videos":["https://www.instagram.com/p/DZX94iqRnQL/"],"note":"新生多玩","related":[],"equipment":[]},{"id":"46","num":"46","source":"教練","name":"內野接球腳步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"接球點","videos":["https://www.instagram.com/p/DZSKOcMu9dE/"],"note":"框框菜單","related":[],"equipment":[]},{"id":"47","num":"47","source":"教練","name":"內野跑傳腳步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"手與腳部的相對位置","videos":["https://www.instagram.com/p/DYjuJfPOnBV/"],"note":"學姊玩","related":[],"equipment":[]},{"id":"48","num":"48","source":"教練","name":"三壘接球","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"墊步單腳啟動","videos":["https://www.instagram.com/p/DYZheuaOA8c/"],"note":"三壘","related":[],"equipment":[]},{"id":"49","num":"49","source":"教練","name":"胸椎旋轉與平面","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"棒子與身體的夾角平面","videos":[],"note":"","related":[],"equipment":[]},{"id":"50","num":"50","source":"教練","name":"外野斜後接球","nameEn":"","purpose":"外野守備","part":"全身","keyPoints":"上身不要晃","videos":["https://www.instagram.com/p/DXcndUxks38/"],"note":"","related":[],"equipment":[]},{"id":"51","num":"51","source":"教練","name":"接傳球","nameEn":"","purpose":"守備","part":"全身","keyPoints":"接球面，腳步節奏","videos":["https://www.instagram.com/p/DWoZ1X_EWqG/"],"note":"大家多玩","related":[],"equipment":[]},{"id":"52","num":"52","source":"教練","name":"打擊站姿","nameEn":"","purpose":"打擊","part":"全身","keyPoints":"中軸的角度","videos":[],"note":"","related":[],"equipment":[]},{"id":"53","num":"53","source":"教練","name":"框架","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"手與身體的平面","videos":["https://www.instagram.com/p/DWTaTPqz1uA/"],"note":"棒尾打到手的改善","related":[],"equipment":[]},{"id":"54","num":"54","source":"教練","name":"打擊上肢啟動","nameEn":"","purpose":"打擊","part":"胸椎、手","keyPoints":"上肢啟動與框架","videos":["https://www.instagram.com/p/DVRlN-oj1S1/"],"note":"","related":[],"equipment":[]},{"id":"55","num":"55","source":"教練","name":"打擊框架不往後倒","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"前肩","videos":["https://www.facebook.com/reel/904099942039694"],"note":"大家多玩","related":[],"equipment":[]},{"id":"56","num":"56","source":"教練","name":"牽制投球訓練","nameEn":"","purpose":"投球","part":"全身","keyPoints":"","videos":["https://www.instagram.com/reels/DPvfP3Dkftc/"],"note":"投手要做","related":[],"equipment":[]},{"id":"57","num":"57","source":"教練","name":"打擊tee座位置","nameEn":"","purpose":"打擊","part":"全身","keyPoints":"站位與本壘板位置要先確定","videos":["https://www.facebook.com/reel/1249360170053230"],"note":"新生","related":[],"equipment":[]},{"id":"58","num":"58","source":"教練","name":"內野飛球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"接球點注意好","videos":["https://facebook.com/reel/1016658344172507?fs=e&mibextid=wwXIfr&rdid=0hqdEhTMt9p6gAS2&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F17VspR6hGB%2F%3Fmibextid%3DwwXIfr#"],"note":"網球","related":[],"equipment":[]},{"id":"59","num":"59","source":"教練","name":"旋轉平面維持","nameEn":"","purpose":"打擊","part":"全身","keyPoints":"軀幹與手平面","videos":["https://www.instagram.com/p/DQx6QuuDKJo/"],"note":"","related":[],"equipment":[]},{"id":"60","num":"60","source":"教練","name":"修正手啟動","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"不要往外繞","videos":["https://www.instagram.com/p/DR_NZYpkUS0/"],"note":"","related":[],"equipment":[]},{"id":"61","num":"61","source":"教練","name":"啟動重心","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"肩膀角度","videos":["https://www.instagram.com/p/DQqQDSCgTbc/"],"note":"","related":[],"equipment":[]},{"id":"62","num":"62","source":"教練","name":"確認上肢平面","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"竿子跟身體中軸位置注意","videos":["https://www.instagram.com/p/DQRgHWTktj6/"],"note":"","related":[],"equipment":[]},{"id":"63","num":"63","source":"教練","name":"髖啟動體感","nameEn":"","purpose":"打擊","part":"下肢","keyPoints":"體驗順序，不要急","videos":["https://www.instagram.com/p/DPkl-HLAbPL/"],"note":"","related":[],"equipment":[]},{"id":"64","num":"64","source":"教練","name":"繞手修正","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"不用刻意頰後手","videos":["https://www.instagram.com/p/DO-gWgxCU5e/"],"note":"","related":[],"equipment":[]},{"id":"65","num":"65","source":"教練","name":"反手腳步訓練","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"看球視線維持","videos":["https://www.facebook.com/watch/?ref=saved&v=1923202971631798"],"note":"","related":[],"equipment":[]},{"id":"66","num":"66","source":"教練","name":"內野預備起步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"啟動腳步","videos":["https://www.facebook.com/watch/?ref=saved&v=1551452002750605"],"note":"","related":[],"equipment":[]},{"id":"67","num":"67","source":"教練","name":"外野滾地腳步","nameEn":"","purpose":"外野守備","part":"下肢","keyPoints":"手套與身體位置，注意投球續力","videos":["https://www.instagram.com/reels/DMNtXjuR10X/"],"note":"","related":[],"equipment":[]},{"id":"68","num":"68","source":"教練","name":"外野滾地畫圓","nameEn":"","purpose":"外野守備","part":"全身","keyPoints":"接球位置，方向與球來向","videos":["https://www.instagram.com/p/B5xR4-DBbFp/?igsh=MTEzcXgwejdmamdvaw%3D%3D"],"note":"","related":[],"equipment":[]},{"id":"69","num":"69","source":"教練","name":"外野滾地腳步","nameEn":"","purpose":"外野守備","part":"下肢","keyPoints":"手套與身體位置，注意投球續力","videos":["https://www.instagram.com/reels/DN_m-KM5HCF/"],"note":"","related":[],"equipment":[]},{"id":"70","num":"70","source":"教練","name":"一壘接球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"腳與手套的方向","videos":["https://www.facebook.com/watch/?ref=saved&v=820325140874130"],"note":"","related":[],"equipment":[]},{"id":"71","num":"71","source":"教練","name":"內野框框腳步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"注意腳的順序","videos":["https://www.facebook.com/watch/?ref=saved&v=3329872170522841"],"note":"","related":[],"equipment":[]},{"id":"72","num":"72","source":"教練","name":"外野向後轉身","nameEn":"","purpose":"外野守備","part":"全身","keyPoints":"注意腳的順序","videos":["https://www.facebook.com/watch/?ref=saved&v=1380425076839488"],"note":"","related":[],"equipment":[]},{"id":"73","num":"73","source":"教練","name":"打擊髖啟動","nameEn":"","purpose":"打擊","part":"下肢","keyPoints":"腹部要感受張力傳到胸椎","videos":["https://www.facebook.com/watch/?ref=saved&v=4082696018646360"],"note":"","related":[],"equipment":[]},{"id":"74","num":"74","source":"教練","name":"內野接球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"","videos":["https://www.facebook.com/watch/?ref=saved&v=1067729551343161"],"note":"組合，可直接當練習項目","related":[],"equipment":[]},{"id":"75","num":"75","source":"教練","name":"反手傳球腳步","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"可以與投球順序確認","videos":["https://www.facebook.com/watch/?ref=saved&v=487866457643045"],"note":"","related":[],"equipment":[]},{"id":"76","num":"76","source":"教練","name":"蹲接","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"腳底重心","videos":["https://www.instagram.com/reels/DTEb9XYCTQ3/"],"note":"新生先備","related":[],"equipment":[]},{"id":"77","num":"77","source":"教練","name":"內野接球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"","videos":["https://www.instagram.com/reels/DVeu1XwkfPv/"],"note":"組合，可直接當練習項目","related":[],"equipment":[]},{"id":"78","num":"78","source":"教練","name":"內野拋球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"掌心、重心方向","videos":["https://www.instagram.com/reels/DVHjvd9keHh/"],"note":"二游必做","related":[],"equipment":[]},{"id":"79","num":"79","source":"教練","name":"內野兩側丟球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"腳步、面、續力的關係","videos":["https://www.instagram.com/reels/DXfenfcSJnC/"],"note":"內野都要做","related":[],"equipment":[]},{"id":"80","num":"80","source":"教練","name":"咖斗滾地球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"腳步到投球動作","videos":["https://www.instagram.com/reels/DYdX08JsQgk/"],"note":"","related":[],"equipment":[]},{"id":"81","num":"81","source":"教練","name":"一壘接球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"手套划的面","videos":["https://www.facebook.com/reel/612893241088799"],"note":"一壘接球用","related":[],"equipment":[]},{"id":"82","num":"82","source":"教練","name":"啟動不冗","nameEn":"","purpose":"打擊","part":"全身","keyPoints":"球從頭上落下","videos":["https://www.facebook.com/reel/539629558853134"],"note":"","related":[],"equipment":[]},{"id":"83","num":"83","source":"教練","name":"內野啟動腳步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"要能加速","videos":["https://www.facebook.com/watch/?ref=saved&v=1114643696928741"],"note":"","related":[],"equipment":[]},{"id":"84","num":"84","source":"教練","name":"內野接球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"","videos":["https://www.facebook.com/reel/650034630814015"],"note":"組合，可直接當練習項目","related":[],"equipment":[]},{"id":"85","num":"85","source":"教練","name":"移動腳步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"視線要穩定","videos":["https://www.facebook.com/watch/?ref=saved&v=1092981772840768"],"note":"","related":[],"equipment":[]},{"id":"86","num":"86","source":"教練","name":"內野接球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"","videos":["https://www.facebook.com/reel/1076075331019431"],"note":"球靜止，較簡單","related":[],"equipment":[]},{"id":"87","num":"87","source":"教練","name":"滑壘變向","nameEn":"","purpose":"跑壘","part":"全身","keyPoints":"","videos":["https://www.instagram.com/p/DRegCHlgXgI/"],"note":"先會滑壘","related":[],"equipment":[]},{"id":"88","num":"88","source":"教練","name":"盜壘起步","nameEn":"","purpose":"跑壘","part":"全身","keyPoints":"腳步踩的位置","videos":["https://www.instagram.com/p/DL7ZQ_PPpC7/"],"note":"","related":[],"equipment":[]},{"id":"89","num":"89","source":"教練","name":"內野順向腳步","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"左腳踩得比右腳前半至一個腳掌","videos":["https://www.instagram.com/p/DM6PWCSToLl/"],"note":"","related":[],"equipment":[]},{"id":"90","num":"90","source":"教練","name":"內野接滾地手套位置","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"手套不離開身體","videos":["https://www.instagram.com/p/DODqIcDDQ7D/"],"note":"","related":[],"equipment":[]},{"id":"91","num":"91","source":"教練","name":"軀幹轉動","nameEn":"","purpose":"打擊","part":"全身","keyPoints":"所謂的前肩先走不好","videos":["https://www.instagram.com/p/DOAK3Urkexq/"],"note":"","related":[],"equipment":[]},{"id":"92","num":"92","source":"教練","name":"上肢啟動","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"手肘如何動","videos":["https://www.instagram.com/p/DN4HSKFgbOq/"],"note":"","related":[],"equipment":[]},{"id":"93","num":"93","source":"教練","name":"彈跳上升點接球","nameEn":"","purpose":"守備","part":"全身","keyPoints":"趴趴節奏","videos":["https://www.instagram.com/p/DNimnO4RZ9-/"],"note":"","related":[],"equipment":[]},{"id":"94","num":"94","source":"教練","name":"滾地收球","nameEn":"","purpose":"內野守備","part":"上肢","keyPoints":"可以注意拿球時機跟手套朝向","videos":["https://www.instagram.com/p/DKrW7-MuwQZ/"],"note":"","related":[],"equipment":[]},{"id":"95","num":"95","source":"教練","name":"打擊啟動","nameEn":"","purpose":"打擊","part":"全身","keyPoints":"注意張力","videos":["https://www.instagram.com/p/DKx9wezxTnU/"],"note":"","related":[],"equipment":[]},{"id":"96","num":"96","source":"教練","name":"滾地接球方向","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"手套不離開身體","videos":["https://www.instagram.com/p/DKNgAmrhJXh/"],"note":"","related":[],"equipment":[]},{"id":"97","num":"97","source":"教練","name":"接傳球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"可以注意拿球時機跟手套朝向","videos":["https://www.instagram.com/dicek1881/saved/all-posts/"],"note":"","related":[],"equipment":[]},{"id":"98","num":"98","source":"教練","name":"咖斗腳步","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"錄影檢查自己冗不冗","videos":["https://www.instagram.com/p/DJ3ucoazmH6/"],"note":"","related":[],"equipment":[]},{"id":"99","num":"99","source":"教練","name":"接球腳步","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"多注意這個影片的反手","videos":["https://www.instagram.com/p/DJy1IlUOjpJ/"],"note":"","related":[],"equipment":[]},{"id":"100","num":"100","source":"教練","name":"內野接球","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"","videos":["https://www.instagram.com/p/DI6LVX3O8zN/"],"note":"球靜止，較簡單","related":[],"equipment":[]},{"id":"101","num":"101","source":"教練","name":"打擊平面與啟動","nameEn":"","purpose":"打擊","part":"全身","keyPoints":"注意平面的方向","videos":["https://www.facebook.com/reel/1531238841773633"],"note":"","related":[],"equipment":[]},{"id":"102","num":"102","source":"教練","name":"增加啟動體感","nameEn":"","purpose":"打擊","part":"全身","keyPoints":"上半身被帶出來","videos":["https://www.instagram.com/reel/DZqpyU4iM3S/?igsh=MTN6dmowcGZxanQ0MQ=="],"note":"可以拿輕一點的","related":[],"equipment":[]},{"id":"103","num":"103","source":"教練","name":"如何蓄力準備","nameEn":"","purpose":"打擊","part":"全身","keyPoints":"中軸與四肢的關係","videos":["https://www.instagram.com/reel/DZsztSCByEl/?igsh=MXBlMWZiY3Y1cTBrNQ=="],"note":"","related":[],"equipment":[]},{"id":"104","num":"104","source":"教練","name":"內野腳步順序","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"右腳，左腳要踩的比右腳前","videos":["https://www.facebook.com/share/v/1CudJkp83H/"],"note":"","related":[],"equipment":[]},{"id":"105","num":"105","source":"教練","name":"內野跪到傳","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"","videos":["https://www.instagram.com/reel/DZ0EnK4hVc0/?igsh=MXZ0NWNuN25qdmhsbQ=="],"note":"","related":[],"equipment":[]},{"id":"106","num":"106","source":"教練","name":"下棒軌跡","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"注意手肘怎麼出","videos":["https://www.facebook.com/share/r/1HyY3qdfAu/"],"note":"","related":[],"equipment":[]},{"id":"107","num":"107","source":"教練","name":"各種牽制","nameEn":"","purpose":"跑壘","part":"全身","keyPoints":"看各種牽制動作，可以想哪時候起跑哪時候回壘","videos":["https://www.youtube.com/watch?v=pNl6s5lqTAw"],"note":"","related":[],"equipment":[]},{"id":"108","num":"108","source":"教練","name":"打擊上肢旋轉","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"軀幹帶動旋轉，替座要放高","videos":["https://www.instagram.com/reel/DaTMy2pMxp-/?igsh=MXRoMDBnN3lzazlicw=="],"note":"","related":[],"equipment":[]},{"id":"109","num":"109","source":"教練","name":"左投牽制","nameEn":"","purpose":"跑壘","part":"全身","keyPoints":"balk邊緣","videos":["https://www.facebook.com/reel/2012001059452835/"],"note":"","related":[],"equipment":[]},{"id":"110","num":"110","source":"教練","name":"側傳訓練","nameEn":"","purpose":"投球","part":"全身","keyPoints":"","videos":["https://www.instagram.com/reel/DaSy8Yvv71d/?igsh=MWs2M2hzanB6eTN3aA=="],"note":"","related":[],"equipment":[]},{"id":"111","num":"111","source":"教練","name":"左投牽制","nameEn":"","purpose":"跑壘","part":"全身","keyPoints":"","videos":["https://www.instagram.com/reel/DY4mp_hPq0T/?igsh=MXVhcDA4ZGE3cmU5OQ=="],"note":"","related":[],"equipment":[]},{"id":"112","num":"112","source":"教練","name":"右投牽制","nameEn":"","purpose":"跑壘","part":"全身","keyPoints":"可以想要看哪個部位","videos":["https://www.instagram.com/reel/DZSO07Bvgz9/?igsh=aTFvMnZwOWc0NTJm"],"note":"","related":[],"equipment":[]},{"id":"113","num":"113","source":"教練","name":"內野收球","nameEn":"","purpose":"內野守備","part":"上肢","keyPoints":"手肘操控","videos":["https://www.instagram.com/reel/DaeqFmORnNj/?igsh=MWhtamdqZ2tyaHhuZA=="],"note":"","related":[],"equipment":[]},{"id":"114","num":"114","source":"教練","name":"打擊蓄力比較","nameEn":"","purpose":"打擊","part":"下肢","keyPoints":"注意髖、膝蓋的位置，以及背不要駝背","videos":["https://www.instagram.com/reel/DakTFTMhq1l/?igsh=MTl2aW9ycDU4NTJ0MQ=="],"note":"","related":[],"equipment":[]},{"id":"115","num":"115","source":"教練","name":"打擊啟動到step的重心","nameEn":"","purpose":"打擊","part":"下肢","keyPoints":"除了重心，注意髖蓄力有沒有持續","videos":["https://www.instagram.com/reel/DaDajp9hr9g/?igsh=aHY2bXNma2dleTRr"],"note":"","related":[],"equipment":[]},{"id":"116","num":"116","source":"教練","name":"修正投球上肢時序","nameEn":"","purpose":"投球","part":"上肢","keyPoints":"注意落地時手的位置，身體節奏，以及平地與投手丘的時間差","videos":["https://www.youtube.com/watch?v=crXYs7EfnDc"],"note":"","related":[],"equipment":[]},{"id":"117","num":"117","source":"教練","name":"蓄力時面的維持","nameEn":"","purpose":"打擊","part":"全身","keyPoints":"軀髖好，由髖跟核心啟動，不用快，且注意中心","videos":["https://www.instagram.com/reel/DarzblgRcGt/?igsh=MWpqMjZqem9ldDFnbw=="],"note":"","related":[],"equipment":[]},{"id":"118","num":"118","source":"教練","name":"檢查繞棒","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"手彈出來的時間","videos":["https://www.instagram.com/reel/DawQQSPurxe/?igsh=d3YwbjVlbnRvOXB0"],"note":"","related":[],"equipment":[]},{"id":"119","num":"119","source":"教練","name":"投手牽制二壘的時間點","nameEn":"","purpose":"守備","part":"全身","keyPoints":"投手看丟的時間與腳步，野手看進去的時間","videos":["https://www.instagram.com/reel/DarZd6dGbNK/?igsh=MTIxcnhtcm5hYTgwNg=="],"note":"","related":[],"equipment":[]},{"id":"120","num":"120","source":"教練","name":"二壘手丟二壘","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"注意步伐跟腳的朝向","videos":["https://www.instagram.com/reel/Daxp9fehSR6/?igsh=azYwb2dycGQ3dHY0"],"note":"","related":[],"equipment":[]},{"id":"121","num":"121","source":"教練","name":"游擊丟二壘","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"步伐與重心","videos":["https://www.instagram.com/reel/DaQLrJ3BrO6/?igsh=ZXR4dzBrNjZuOG9q"],"note":"","related":[],"equipment":[]},{"id":"122","num":"122","source":"教練","name":"內飛移動","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"重心在雙腳之間","videos":["https://www.instagram.com/reel/DaLCJtyRaxA/?igsh=ZnZtMGw1YWFra2pt"],"note":"","related":[],"equipment":[]},{"id":"123","num":"123","source":"教練","name":"下棒檢查","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"","videos":["https://www.instagram.com/reel/DbKLISeCn3j/?igsh=MWticGFvNjFxajZucQ=="],"note":"","related":[],"equipment":[]},{"id":"124","num":"124","source":"教練","name":"內野接球面","nameEn":"","purpose":"內野守備","part":"上肢","keyPoints":"注意掌面","videos":["https://www.instagram.com/reel/DcijcubOcaw/?igsi=MTBldHRjOHpzdzM4"],"note":"","related":[],"equipment":[]},{"id":"125","num":"125","source":"教練","name":"內野反手位置","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"手套跟身體的位置，以及腳步如何運用","videos":["https://www.instagram.com/reel/DcyZtwKh_4S/?igsi=MTRwbGtkd2ZzczNwYw=="],"note":"","related":[],"equipment":[]},{"id":"126","num":"126","source":"教練","name":"咖抖面向","nameEn":"","purpose":"守備","part":"全身","keyPoints":"手套跟髖的面","videos":["https://www.instagram.com/reel/Dc07lDWxEvB/?igsi=MTkxNnR4OW8xb25jMg=="],"note":"","related":[],"equipment":[]},{"id":"127","num":"127","source":"教練","name":"反手腳步","nameEn":"","purpose":"內野守備","part":"全身","keyPoints":"右腳反手左腳","videos":["https://www.instagram.com/reel/DdBlU09OT-H/?stkn=bXgyd2dmcTB5aW4w"],"note":"","related":[],"equipment":[]},{"id":"128","num":"128","source":"教練","name":"咖斗腳步","nameEn":"","purpose":"守備","part":"全身","keyPoints":"拿球轉身，髖旋轉的時間","videos":["https://www.facebook.com/share/r/1KTYEg8Lae/"],"note":"","related":[],"equipment":[]},{"id":"129","num":"129","source":"教練","name":"揮棒延伸","nameEn":"","purpose":"打擊","part":"上肢","keyPoints":"螺旋轉直線，掌心朝上檢查，切記不是主動把手往前伸","videos":["https://www.instagram.com/reel/DdMTq_Vubjc/?stkn=dGE1cjBkYTM4YzU="],"note":"","related":[],"equipment":[]},{"id":"130","num":"130","source":"教練","name":"如何轉髖","nameEn":"","purpose":"打擊","part":"下肢","keyPoints":"教學好朋友","videos":["https://www.instagram.com/reel/DdQuJLPPWnU/?stkn=MWZyeHh1a3N4bGV3Mg=="],"note":"","related":[],"equipment":[]},{"id":"131","num":"131","source":"教練","name":"內野組合接球","nameEn":"","purpose":"內野守備","part":"下肢","keyPoints":"菜單好朋友","videos":["https://www.instagram.com/reel/Dc94MUaCVGd/?stkn=bWJsYW9uZTZyd2Jp"],"note":"","related":[],"equipment":[]},{"id":"132","num":"132","source":"教練","name":"內野手套怎麼放","nameEn":"","purpose":"內野守備","part":"上肢","keyPoints":"注意相對位置","videos":["https://www.instagram.com/reel/DeT5jTxNnOO/?srtk=Nzh0enVpYm9hazE2"],"note":"","related":[],"equipment":[]},{"id":"D-01","num":"D-01","source":"Driveline-打擊","name":"偏移旋轉","nameEn":"Offset Rotation","purpose":"打擊","part":"軀幹","keyPoints":"練習正確的軀幹旋轉、擊球深度與揮棒路徑,把球分別打往反方向、中間與拉打方向。每次熱身都從這個動作開始。","videos":["https://www.youtube.com/watch?v=Divh5BtngPg"],"note":"","related":[],"equipment":["Hitting Plyo","Weighted Bats"]},{"id":"D-02","num":"D-02","source":"Driveline-打擊","name":"後撤步揮擊","nameEn":"Step Backs","purpose":"打擊","part":"","keyPoints":"","videos":["https://www.youtube.com/watch?v=AkwKO0J2SEM"],"note":"PDF 未附文字說明,請參考影片","related":[],"equipment":["Baseball","Hitting Plyo","Short Bat","Weighted Bats"]},{"id":"D-03","num":"D-03","source":"Driveline-打擊","name":"Hook 'Em","nameEn":"Hook 'Em","purpose":"打擊","part":"","keyPoints":"","videos":["https://www.youtube.com/watch?v=IyCE0hey7-I"],"note":"PDF 未附文字說明,請參考影片","related":[],"equipment":["Baseball","Hitting Plyo","Long Bat","Weighted Bats"]},{"id":"D-04","num":"D-04","source":"Driveline-打擊","name":"走步揮擊","nameEn":"Walk Throughs","purpose":"打擊","part":"","keyPoints":"","videos":["https://www.youtube.com/watch?v=9BsRj3u5HQs"],"note":"PDF 未附文字說明,請參考影片","related":[],"equipment":["Baseball","Hitting Plyo","Underload","Weighted Bats"]},{"id":"D-05","num":"D-05","source":"Driveline-打擊","name":"一般揮擊","nameEn":"Regular","purpose":"打擊","part":"","keyPoints":"以平常的打擊動作揮擊,揮速日搭配不同重量的訓練棒全力揮擊。","videos":[],"note":"PDF 未附說明","related":[],"equipment":["Barrel Load","Baseball","Game Bat","Handle Load","Underload","Weighted Bats"]},{"id":"D-06","num":"D-06","source":"Driveline-打擊","name":"滑步揮擊","nameEn":"Shuffle Swings","purpose":"打擊","part":"全身","keyPoints":"盡可能快速移動,朝投手方向滑步,並以最快速度揮棒。","videos":[],"note":"","related":[],"equipment":["Barrel Load","Baseball","Game Bat","Handle Load","Underload"]},{"id":"D-07","num":"D-07","source":"Driveline-打擊","name":"深度階梯","nameEn":"Depth Ladder","purpose":"打擊","part":"","keyPoints":"放 3 顆球在不同擊球點:一顆在身體前方、一顆在本壘板前緣、一顆在本壘板中間。目標是在每個擊球點都能強勁擊球。","videos":[],"note":"","related":[],"equipment":["Hitting Plyo","Short Bat","Weighted Bats"]},{"id":"D-08","num":"D-08","source":"Driveline-打擊","name":"高中低","nameEn":"High, Middle, Low","purpose":"打擊","part":"","keyPoints":"擊打好球帶高、中、低三個位置的球。可調整打擊座高度,或讓發球機/餵球者投到這些位置。","videos":["https://youtu.be/A8pCgj4xghU"],"note":"","related":[],"equipment":["Hitting Plyo","Long Bat","Mini Hitting Plyo","Smash Bat"]},{"id":"D-09","num":"D-09","source":"Driveline-打擊","name":"全場繞一圈","nameEn":"Around The World","purpose":"打擊","part":"","keyPoints":"目標是能把球強勁打向各個方向。像籃球的繞場投籃,先設定把球打往右外野或左外野,再一路換到另一側。擊球點要配合目標方向,例如要打往右外野,打擊座或餵球就放在本壘板外側。","videos":[],"note":"","related":[],"equipment":["Hitting Plyo","Mini Hitting Plyo","Smash Bat","Weighted Bats"]},{"id":"D-10","num":"D-10","source":"Driveline-打擊","name":"紮實擊球","nameEn":"Hit it Flush","purpose":"打擊","part":"","keyPoints":"盡可能打出最好的擊球接觸。不要切到球的側邊,就是純粹、紮實地擊中。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat","Mini Hitting Plyo","Random Bat","Smash Bat"]},{"id":"D-11","num":"D-11","source":"Driveline-打擊","name":"低平反方向","nameEn":"Low Oppo","purpose":"打擊","part":"","keyPoints":"以低仰角把球打往反方向。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat"]},{"id":"D-12","num":"D-12","source":"Driveline-打擊","name":"高飛拉打","nameEn":"High Pull","purpose":"打擊","part":"","keyPoints":"以高仰角把球打往拉打方向。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat"]},{"id":"D-13","num":"D-13","source":"Driveline-打擊","name":"低仰角","nameEn":"Low Launch","purpose":"打擊","part":"","keyPoints":"以低飛行軌跡為目標打向各方向,同時維持強勁擊球。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat","Random Bat"]},{"id":"D-14","num":"D-14","source":"Driveline-打擊","name":"高仰角","nameEn":"High Launch","purpose":"打擊","part":"","keyPoints":"以高飛行軌跡為目標打向各方向,同時維持強勁擊球。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat","Random Bat"]},{"id":"D-15","num":"D-15","source":"Driveline-打擊","name":"兩好球情境","nameEn":"2k Count","purpose":"打擊","part":"","keyPoints":"每一輪都假設自己處在兩好球。打擊失投球、把好球破壞掉,努力把球紮實打進場內。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat"]},{"id":"D-16","num":"D-16","source":"Driveline-打擊","name":"2-0 球數情境","nameEn":"2-0 Count","purpose":"打擊","part":"","keyPoints":"每一球都假設自己是 2-0 球數。目標是造成傷害:只打能重擊的球,其他都放掉。打得又強又遠。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat"]},{"id":"D-17","num":"D-17","source":"Driveline-打擊","name":"本壘板四球","nameEn":"4-Ball Plate","purpose":"打擊","part":"","keyPoints":"在本壘板前緣放 4 顆球,涵蓋好球帶中間區域。和 2-0 情境類似:鎖定通過中間的球並重擊。打者或餵球者要回報球通過哪一顆球(1 = 中間偏內,4 = 中間偏外)。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat"]},{"id":"D-18","num":"D-18","source":"Driveline-打擊","name":"本壘板七球","nameEn":"7-Ball Plate","purpose":"打擊","part":"","keyPoints":"在本壘板前緣放 7 顆球。和兩好球情境類似,練習本壘板的涵蓋範圍。打者要能說出球通過的位置(1 = 內角邊緣,7 = 外角),同時培養選球紀律。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat"]},{"id":"D-19","num":"D-19","source":"Driveline-打擊","name":"熱區","nameEn":"Hot Zone","purpose":"打擊","part":"","keyPoints":"和本壘板四球類似,但以打擊策略為主。不在本壘板前放球,要像 2-0 球數一樣鎖定自己的熱區。目的是了解自己,建立優勢球數時的打擊策略。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat"]},{"id":"D-20","num":"D-20","source":"Driveline-打擊","name":"鎖定高球","nameEn":"See It Up","purpose":"打擊","part":"","keyPoints":"和兩好球情境類似,但以打擊策略為主。鎖定偏高的球,遇到偏低的球再往下調整。這樣比較容易應付投手在兩好球愛用的高速直球,也不會追打壞球帶下方的變化球。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat"]},{"id":"D-21","num":"D-21","source":"Driveline-打擊","name":"鎖定區域","nameEn":"Hunt A Zone","purpose":"打擊","part":"","keyPoints":"鎖定本壘板的某個區域。例如鎖定內角低:出現在那裡的球都要重擊,不在那個區域的球都放掉。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat"]},{"id":"D-22","num":"D-22","source":"Driveline-打擊","name":"鎖定球種","nameEn":"Hunt A Pitch","purpose":"打擊","part":"","keyPoints":"鎖定某個球種。例如鎖定曲球:曲球就要打強,不是曲球的都放掉。","videos":[],"note":"","related":[],"equipment":["Baseball","Game Bat"]},{"id":"D-23","num":"D-23","source":"Driveline-打擊","name":"實戰打席","nameEn":"At-Bats","purpose":"打擊","part":"","keyPoints":"","videos":[],"note":"PDF 未附說明","related":[],"equipment":["Baseball","Game Bat"]}],"menus":[{"sheet":"大流程","audience":"學姊","category":"打擊","steps":[{"title":"打擊熱身","itemIds":[],"note":"","branches":[]},{"title":"動作確認","itemIds":[],"note":"","branches":[]},{"title":"基礎打擊練習","itemIds":[],"note":"","branches":[{"title":"變化球、不同位置擊球","itemIds":[],"note":"","label":"延伸"}]},{"title":"正拋、上手、發球機","itemIds":[],"note":"","branches":[{"title":"變化球、不同位置擊球","itemIds":[],"note":"","label":"延伸"}]},{"title":"策略執行","itemIds":[],"note":"","branches":[]}]},{"sheet":"大流程","audience":"學姊","category":"守備","steps":[{"title":"活動度、熱身","itemIds":[],"note":"","branches":[]},{"title":"傳接球","itemIds":[],"note":"","branches":[]},{"title":"手套面使用(跪)","itemIds":[],"note":"細項見「內野守備組合」","branches":[]},{"title":"腳步確認(四個方向)","itemIds":[],"note":"細項見「內野守備組合」","branches":[]},{"title":"傳球(收球與傳球續力)","itemIds":[],"note":"","branches":[]},{"title":"logu","itemIds":[],"note":"","branches":[]},{"title":"綜合守備","itemIds":[],"note":"","branches":[]}]},{"sheet":"大流程","audience":"學姊","category":"跑壘","steps":[{"title":"左手一壘跑壘","itemIds":["11"],"note":"","branches":[]},{"title":"啟動","itemIds":["88"],"note":"","branches":[]},{"title":"繞壘","itemIds":["22"],"note":"","branches":[]},{"title":"滑壘變向","itemIds":["87"],"note":"","branches":[]}]},{"sheet":"大流程","audience":"學姊","category":"投手","steps":[{"title":"牽制","itemIds":["26"],"note":"","branches":[]}]},{"sheet":"大流程","audience":"學妹","category":"大場","steps":[{"title":"熱身","itemIds":[],"note":"水管、簡單活動","branches":[]},{"title":"活動度","itemIds":["8"],"note":"","branches":[]},{"title":"身體操作","itemIds":["8"],"note":"","branches":[]},{"title":"馬克操","itemIds":["9"],"note":"看影片","branches":[]},{"title":"彈力帶","itemIds":[],"note":"","branches":[]},{"title":"傳接球","itemIds":["3","4","17","51"],"note":"","branches":[]},{"title":"基礎守備","itemIds":[],"note":"內野/外野,見守備組合","branches":[]}]},{"sheet":"大流程","audience":"學妹","category":"打擊","steps":[{"title":"打擊熱身","itemIds":[],"note":"","branches":[{"title":"學習水管、藥球使用","itemIds":[],"note":"","label":"延伸"}]},{"title":"動作養成","itemIds":[],"note":"見「打擊訓練組合」","branches":[]},{"title":"基礎打擊練習","itemIds":[],"note":"","branches":[]},{"title":"正拋","itemIds":[],"note":"","branches":[]}]},{"sheet":"打擊訓練組合","audience":"新生","category":"打擊","steps":[{"title":"先確定","itemIds":["41","52","61","103","114","115"],"note":"教學用","branches":[{"title":"如何轉髖","itemIds":["130"],"note":"","label":"教學"},{"title":"確認手蓄力時沒有過度拉扯","itemIds":["103"],"note":"","label":"學姊"}]},{"title":"髖抓體感","itemIds":["45","63","117"],"note":"","branches":[]},{"title":"旋轉髖","itemIds":["1"],"note":"可以搭配其他的髖旋轉訓練","branches":[]},{"title":"上肢框架","itemIds":["2","20","54","108"],"note":"搭配髖旋轉","branches":[{"title":"後手框架的維持、延伸","itemIds":["49"],"note":"","label":"進階"},{"title":"後手手肘的使用","itemIds":["92"],"note":"","label":"進階"},{"title":"前肩開調修正","itemIds":["91"],"note":"","label":"進階"},{"title":"增強體感","itemIds":["102"],"note":"","label":"進階"}]},{"title":"上肢修正","itemIds":["53","55","60","65","106","123"],"note":"延伸線性做好,不主動推手","branches":[{"title":"揮棒延伸","itemIds":["129"],"note":"","label":"延伸"},{"title":"修正繞手","itemIds":["64","120"],"note":"","label":"進階"}]},{"title":"上下連結","itemIds":["42","95","101"],"note":"","branches":[]},{"title":"連結修正","itemIds":["59"],"note":"","branches":[]},{"title":"打tee座前確認","itemIds":["57"],"note":"","branches":[]},{"title":"拋球前timing","itemIds":["73"],"note":"","branches":[{"title":"續力啟動","itemIds":["82"],"note":"","label":"進階"}]}]},{"sheet":"內野守備組合","audience":"學姊","category":"內野手守備","steps":[{"title":"手套面使用(跪)","itemIds":["12","124"],"note":"","branches":[]},{"title":"腳步確認(四個方向)","itemIds":["25","89"],"note":"","branches":[{"title":"反手","itemIds":["127"],"note":"","label":"延伸"}]},{"title":"收球","itemIds":["94"],"note":"","branches":[]},{"title":"移動","itemIds":["65","66","93"],"note":"","branches":[{"title":"內飛移動","itemIds":["122"],"note":"","label":"延伸"}]},{"title":"找彈跳","itemIds":["27","33","34"],"note":"","branches":[]},{"title":"拋球","itemIds":["78"],"note":"","branches":[]},{"title":"傳球","itemIds":["75","79"],"note":"","branches":[{"title":"跑傳","itemIds":["14","35","35-2","47"],"note":"","label":"延伸"},{"title":"側傳","itemIds":["110"],"note":"","label":"延伸"}]},{"title":"咖斗","itemIds":["51","80","98","128"],"note":"","branches":[]},{"title":"觸殺","itemIds":["17"],"note":"","branches":[]},{"title":"牽制","itemIds":["121"],"note":"","branches":[]}]},{"sheet":"內野守備組合","audience":"學姊","category":"綜合菜單","steps":[{"title":"手套面綜合","itemIds":["19","35","35-2","84","105","131"],"note":"學姊可以直接跑綜合練習","branches":[]},{"title":"腳步綜合","itemIds":["24","38","46","74","71","77","99"],"note":"","branches":[]},{"title":"收球綜合","itemIds":["97"],"note":"","branches":[]}]},{"sheet":"內野守備組合","audience":"一壘","category":"special","steps":[{"title":"接球","itemIds":["70","81"],"note":"","branches":[]}]},{"sheet":"內野守備組合","audience":"二、游","category":"special","steps":[{"title":"雙殺腳步","itemIds":["10","29"],"note":"","branches":[]},{"title":"短傳","itemIds":["28","120","121"],"note":"","branches":[]}]},{"sheet":"內野守備組合","audience":"三壘","category":"special","steps":[{"title":"接球腳步","itemIds":["32","48","99"],"note":"","branches":[]}]},{"sheet":"內野守備組合","audience":"學妹","category":"內野手守備","steps":[{"title":"先備知識","itemIds":["23","26","31","37","39","76","132"],"note":"","branches":[]},{"title":"手套面使用(跪)","itemIds":["7"],"note":"","branches":[{"title":"內野接滾地手套位置","itemIds":["90"],"note":"","label":"進階"}]},{"title":"啟動","itemIds":["5","6","15","21","30","44","83","104"],"note":"","branches":[{"title":"移動腳步","itemIds":["85"],"note":"","label":"進階"}]},{"title":"移動","itemIds":["18"],"note":"","branches":[]},{"title":"腳步確認(四個方向)","itemIds":["96"],"note":"","branches":[{"title":"內野接球(球靜止)","itemIds":["86","100"],"note":"","label":"進階"}]},{"title":"內野飛球","itemIds":["58"],"note":"","branches":[]}]},{"sheet":"內野守備組合","audience":"其他","category":"備註","steps":[{"title":"框框前面放水管","itemIds":[],"note":"","branches":[]}]},{"sheet":"外野守備組合","audience":"外野","category":"外野手守備","steps":[{"title":"啟動訓練","itemIds":[],"note":"","branches":[]},{"title":"滾地接球","itemIds":["67","68"],"note":"","branches":[]},{"title":"彈地接球","itemIds":["93"],"note":"","branches":[]},{"title":"接傳腳步","itemIds":["12","36","18","67"],"note":"","branches":[]}]},{"sheet":"外野守備組合","audience":"外野","category":"往後","steps":[{"title":"往後啟動","itemIds":["72"],"note":"","branches":[]},{"title":"飛球往後移動","itemIds":["50"],"note":"","branches":[]}]}],"workouts":[{"code":"BS-A","nameZh":"揮速 A(常規/限制)","nameEn":"Bat Speed A (Regular/Constraint)","desc":"揮速日:幾乎完全把「紮實擊球」和「盡全力快速揮棒」這兩個意圖分開。概念和投球一樣,用稍重或稍輕的球棒以最大意圖揮擊,發展更有效率的運動單元徵召模式,提升揮棒速度。","color":"#F25C3B","warmup":[{"itemId":"D-01","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-02","bat":"Short Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"10","intensity":"60-75%"},{"itemId":"D-03","bat":"Long Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"10","intensity":"75-85%"},{"itemId":"D-04","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"75-85%"}],"skill":[{"itemId":"D-05","bat":"Weighted Bats","ball":"Baseball","env":"Tee or Flips","sets":"1","reps":"12","intensity":"80-95%"},{"itemId":"D-05","bat":"Barrel Load","ball":"Baseball","env":"Tee or Flips","sets":"1","reps":"6","intensity":"95-100%"},{"itemId":"D-05","bat":"Handle Load","ball":"Baseball","env":"Tee or Flips","sets":"1","reps":"6","intensity":"95-100%"},{"itemId":"D-05","bat":"Underload","ball":"Baseball","env":"Tee or Flips","sets":"2","reps":"6","intensity":"95-100%"},{"itemId":"D-05","bat":"Game Bat","ball":"Baseball","env":"Tee or Flips","sets":"1","reps":"6","intensity":"95-100%"},{"itemId":"D-16","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"4","reps":"5","intensity":"Game Like"}]},{"code":"BS-B","nameZh":"揮速 B(身體速度)","nameEn":"Bat Speed B (Body Speed)","desc":"揮速日的另一個版本,技術段以走步揮擊與滑步揮擊為主,加入身體移動速度。","color":"#FFC800","warmup":[{"itemId":"D-01","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-02","bat":"Short Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"10","intensity":"60-75%"},{"itemId":"D-03","bat":"Long Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"10","intensity":"70-80%"},{"itemId":"D-04","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"70-80%"}],"skill":[{"itemId":"D-04","bat":"Weighted Bats","ball":"Baseball","env":"Tee or Flips","sets":"1","reps":"8","intensity":"80-95%"},{"itemId":"D-06","bat":"Barrel Load","ball":"Baseball","env":"Tee or Flips","sets":"1","reps":"4","intensity":"95-100%"},{"itemId":"D-06","bat":"Handle Load","ball":"Baseball","env":"Tee or Flips","sets":"1","reps":"4","intensity":"95-100%"},{"itemId":"D-06","bat":"Underload","ball":"Baseball","env":"Tee or Flips","sets":"2","reps":"4","intensity":"95-100%"},{"itemId":"D-06","bat":"Game Bat","ball":"Baseball","env":"Tee or Flips","sets":"1","reps":"4","intensity":"95-100%"},{"itemId":"D-16","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"4","reps":"5","intensity":"Game Like"}]},{"code":"B2B-A-OFF","nameZh":"觸球 A(棒控)","nameEn":"Bat to Ball A (Bat Control)","desc":"觸球日是高度技術性的訓練日,唯一重點是提升擊中球、尤其是紮實擊中球的能力。特色是使用迷你 Plyo 球、細棒,以較低強度揮擊,反映速度與精準度之間的取捨。","color":"#00B26F","warmup":[{"itemId":"D-01","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-07","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-08","bat":"Smash Bat","ball":"Mini Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-09","bat":"Smash Bat","ball":"Mini Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"70-85%"}],"skill":[{"itemId":"D-10","bat":"Smash Bat","ball":"Mini Hitting Plyo","env":"BP or Machine","sets":"2","reps":"6","intensity":"Game Like"},{"itemId":"D-11","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-12","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-13","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-14","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-15","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"}]},{"code":"B2B-A-IN","nameZh":"觸球 A(棒控)","nameEn":"Bat to Ball A (Bat Control)","desc":"同休賽季版本,但賽季中的「紮實擊球」改用比賽用棒和棒球。","color":"#00B26F","warmup":[{"itemId":"D-01","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-07","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-08","bat":"Smash Bat","ball":"Mini Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-09","bat":"Smash Bat","ball":"Mini Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"70-85%"}],"skill":[{"itemId":"D-10","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"6","intensity":"Game Like"},{"itemId":"D-11","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-12","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-13","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-14","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-15","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"}]},{"code":"B2B-B","nameZh":"觸球 B(差異化)","nameEn":"Bat to Ball B (Differential)","desc":"觸球日的另一個版本,技術段加入隨機球棒,讓打者在不同球棒間調整。","color":"#00B26F","warmup":[{"itemId":"D-01","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-07","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-08","bat":"Smash Bat","ball":"Mini Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-09","bat":"Smash Bat","ball":"Mini Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"70-85%"}],"skill":[{"itemId":"D-10","bat":"Smash Bat","ball":"Mini Hitting Plyo","env":"BP or Machine","sets":"2","reps":"6","intensity":"Game Like"},{"itemId":"D-10","bat":"Random Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-13","bat":"Random Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-14","bat":"Random Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-15","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"}]},{"code":"HYB","nameZh":"混合日","nameEn":"Hybrid","desc":"結合技術日的熱身與技術練習,並在技術練習開始前加入幾輪打擊座或拋打的高意圖揮速訓練。用來安排高意圖的加重棒揮擊,又不會像純揮速日那樣疲勞、需要較長恢復時間。也適合用在打者的漸進恢復期。","color":"#F49AC1","warmup":[{"itemId":"D-01","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-07","bat":"Short Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-08","bat":"Long Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"70-80%"},{"itemId":"D-09","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"75-85%"}],"skill":[{"itemId":"D-02","bat":"Weighted Bats","ball":"Baseball","env":"Tee or Flips","sets":"1","reps":"12","intensity":"80-95%"},{"itemId":"D-03","bat":"Weighted Bats","ball":"Baseball","env":"Tee or Flips","sets":"1","reps":"12","intensity":"95-100%"},{"itemId":"D-04","bat":"Underload","ball":"Baseball","env":"Tee or Flips","sets":"1","reps":"6","intensity":"95-100%"},{"itemId":"D-10","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"1","reps":"5","intensity":"Game Like"},{"itemId":"D-15","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-16","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"}]},{"code":"SD-A","nameZh":"選球 A(好球帶回饋)","nameEn":"Swing Decisions A (Strike Zone Feedback)","desc":"選球日包含技術日的標準練習,但把打者的注意力導向進壘位置,並搭配擊球軌跡目標。A 版本著重好球帶的回饋。","color":"#FFE600","warmup":[{"itemId":"D-01","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-07","bat":"Short Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-08","bat":"Long Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"70-80%"},{"itemId":"D-09","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"75-85%"}],"skill":[{"itemId":"D-10","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-17","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-18","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-15","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-16","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"}]},{"code":"SD-B","nameZh":"選球 B(打擊策略)","nameEn":"Swing Decisions B (Approach)","desc":"選球日 B 版本著重執行打擊策略:鎖定某個區域或某個球種,並搭配擊球軌跡目標。事先減少選項可以爭取反應時間,進而提升出力與整體表現。","color":"#FFE600","warmup":[{"itemId":"D-01","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-07","bat":"Short Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-08","bat":"Long Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"70-80%"},{"itemId":"D-09","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"75-85%"}],"skill":[{"itemId":"D-10","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"1","reps":"5","intensity":"Game Like"},{"itemId":"D-19","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-20","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-21","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-22","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"}]},{"code":"COMP","nameZh":"比賽日","nameEn":"Competition","desc":"比賽日是標準的技術日,可以涵蓋三大能力(揮速、觸球、選球),也可以當作賽前打擊練習,或安排實戰打席。","color":"#00AEEF","warmup":[{"itemId":"D-01","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-07","bat":"Short Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"60-75%"},{"itemId":"D-08","bat":"Long Bat","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"70-80%"},{"itemId":"D-09","bat":"Weighted Bats","ball":"Hitting Plyo","env":"Tee or Flips","sets":"1","reps":"12","intensity":"75-85%"}],"skill":[{"itemId":"D-10","bat":"Smash Bat","ball":"Mini Hitting Plyo","env":"Tee or Flips","sets":"2","reps":"6","intensity":"Game Like"},{"itemId":"D-11","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-12","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-15","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-16","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"2","reps":"5","intensity":"Game Like"},{"itemId":"D-23","bat":"Game Bat","ball":"Baseball","env":"BP or Machine","sets":"3","reps":"5","intensity":"Game Like"}]}],"cycles":[{"name":"休賽季 6–8 週","weeks":[{"week":"1","phase":"測試","days":["休息","BS-A","休息","BS-B","HYB","休息","COMP"]},{"week":"2","phase":"技能建立","days":["休息","BS-B","B2B-A-OFF","BS-A","B2B-A-OFF","HYB","COMP"]},{"week":"3","phase":"技能建立","days":["休息","BS-B","B2B-B","BS-A","SD-A","HYB","COMP"]},{"week":"4","phase":"技能建立","days":["休息","BS-B","B2B-A-OFF","BS-A","B2B-B","HYB","COMP"]},{"week":"5","phase":"技能建立","days":["休息","BS-B","B2B-B","BS-A","SD-B","HYB","COMP"]},{"week":"6","phase":"再測試","days":["休息","BS-A","休息","BS-B","HYB","休息","COMP"]},{"week":"7","phase":"銜接比賽(若要進入賽季)","days":["休息","HYB","B2B-A-OFF","BS-A","SD-B","COMP","COMP"]},{"week":"8","phase":"銜接比賽(若要進入賽季)","days":["休息","HYB","B2B-A-OFF","BS-B","SD-B","COMP","COMP"]}]},{"name":"賽季中 6 週","weeks":[{"week":"1","phase":"技能與速度維持","days":["休息","HYB","B2B-A-IN","COMP","SD-A","BS-B","COMP"]},{"week":"2","phase":"技能與速度維持","days":["休息","BS-A","B2B-B","COMP","SD-B","HYB","COMP"]},{"week":"3","phase":"技能與速度維持","days":["休息","HYB","B2B-A-IN","COMP","SD-A","BS-B","COMP"]},{"week":"4","phase":"技能與速度維持","days":["休息","BS-A","B2B-B","COMP","SD-B","HYB","COMP"]},{"week":"5","phase":"技能與速度維持","days":["休息","HYB","B2B-A-IN","COMP","SD-A","BS-B","COMP"]},{"week":"6","phase":"技能與速度維持","days":["休息","BS-A","B2B-B","COMP","SD-B","HYB","COMP"]}]}],"articles":[{"id":"A-01","title":"評估","titleEn":"Assessment","page":"2","body":"評估球員的能力,是設計並執行適合個人需求課表的必要步驟。雖然缺乏擊球追蹤器和比賽數據等資源會影響評估的準確度,但根據手邊現有資源建立一套打者評估系統,仍然很值得。\n\n一般來說,揮棒速度低於平均的打者,應該優先發展揮速,先於其他所有能力。揮速和比賽表現之間的相關性太強,大多數情況下不該先以觸球或選球為重點。只要揮速是弱點,幾乎都應該先處理,再處理其他面向。\n\n揮速足夠、但擊中球有困難的打者,則應該安排觸球能力的課表。","bodyEn":"The Basics of Executing A Driveline Hitting Program Assessment Assessing a player’s skill set is necessary for designing and deploying the program fit for the individual’s needs. Although a lack of resources - namely launch monitors and in-game data - can limit the accuracy of one’s assessment it is still worthwhile to create a hitter evaluation system based on the resources you do have. Generally speaking, hitters with below-average bat speed should focus on bat speed development over all other skills. The correlations between bat speed and in-game performance are too strong to consider a bat to ball or swing decision focus in most cases. In almost all cases, when bat speed is a weak point of a player’s game, it should be addressed first before attacking any other aspect of their game. Hitters who have sufficient bat speed, but struggle with making contact should be placed on a bat to ball skill program."},{"id":"A-02","title":"評估工具","titleEn":"Assessment Tools","page":"3","body":"【揮棒感測器】可以直接量測擊球瞬間的揮棒速度。只要在練習環境揮 10 次,就能把打者的揮速和同儕、同程度的打者比較排名。幾乎所有情況下,我們都建議用揮棒感測器評估揮速。\n\n【擊球追蹤器/比賽數據】如果有擊球追蹤器,且累積超過 50 顆比賽強度的擊球,計算打者「前 1/8 擊球初速」的平均,是不直接量測揮速時估計揮速能力的最佳方式。前 1/8 擊球初速(比賽或打擊練習中)兼具準確性和可靠性,因為只計算打者打得最紮實的球,排除了追打難打的球或嚴重打偏造成的雜訊。\n\n【測速槍】如果用測速槍,最好直接往前打進網子。測速槍只有在球被打到槍口指向的左右上下幾英尺內時,才能測得準確讀數。建議使用側拋或打擊座,把測速槍放在擊球點後方 6–8 英尺(約 1.8–2.4 公尺)。\n\n【秋季/賽季數據】科技設備有限時,評估觸球能力的最佳方式,是追蹤整個秋季或春季賽季的實戰打席。要得到可靠結論,打者需要 100 個以上的打席,但這在大多數高中或大學情境中不太實際。\n\n選球問題也可以用同樣的方式診斷。比賽數據能最準確地評估打者是否做出高品質的出棒決策——光憑這一點,就應該能帶來高於預期的得分產出。","bodyEn":"Assessment Tools Bat Sensor Bat sensors allow you to directly measure bat speed at the point of contact. With only ten swings in a practice environment, you can determine and rank a hitter’s bat speed against their peers and skill level. In almost all cases, we recommend using a bat sensor to assess bat speed. Launch-Monitor/In-Game Data For those with launch monitors and more than 50 batted balls at game-like intensity, calculating a hitter’s average top 1/8th exit velocity is the best way to estimate a hitter’s bat speed capability without directly measuring bat speed. Top 1/8th exit velocity (in a game or batting practice context) has the advantage of accuracy and reliability because you are only measuring batted balls the hitter has hit flush, therefore removing the noise created by swinging at tough pitches or severely mishitting the ball. Radar Gun If you are using a radar gun, it is best to hit straight on into a net. The radar gun can only register accurate readings when the ball is hit within a few feet to the left, right, above, or below where the gun is pointing. We recommend hitting side toss or tee and placing the radar gun 6-8 feet behind the point of contact. Fall/Season Stats With limited technology, the best way to evaluate a hitter’s bat to ball skills is tracking live at bats over the course of a fall or spring season. In order to reach a reliable conclusion, a hitter should have 100 or more plate appearances, but this is understandably an unreasonable ask in most high school or college scenarios. We can also diagnose a swing decision issue in the same fashion as we understand a hitter’s bat to ball skills. In-game data will allow us to most accurately evaluate and understand if a hitter is making high-quality swing decisions that, by themselves, should lead to higher run production above expected."},{"id":"A-03","title":"課表結構","titleEn":"Program Structure","page":"4","body":"【休賽季模式】執行課表的重點,是評估自己目前的程度,並確認是否正在進步或已經進步。休賽季一開始要建立基準:第 1 週測試揮速、擊球品質、出棒決策等項目;接著完成 4 週訓練,在第 6 週再測試。如果這份課表是用來銜接賽季,之後再進行 2 週逐步融入比賽的訓練。\n\n【賽季中模式】和體能訓練一樣,「賽季中無法進步」這個想法是錯的。這份課表在賽季中會持續訓練揮速——到了季後賽,揮速要和開幕戰時一樣好。也會花相當多時間訓練擊球品質,並透過混合球路或實戰打席等困難情境來處理出棒決策。目標是隨著賽季進行保持敏銳甚至進步,而不是過度依賴休賽季的訓練撐完整年,慢慢退步。","bodyEn":"Program Structure 4 Offseason Model The whole point of executing a program is to assess where you are and find out whether you are getting/have gotten better. In the offseason, it is important to establish a baseline. In Week 1, you will test where you currently are in terms of things like Bat Speed, Contact Quality, or Decision Making. You will then complete 4 weeks of training and re-test in Week 6. If you are completing this program as a ramp up into your season, you will then complete 2 weeks of training blending into competition. In-Season Model Similar to strength and conditioning, the idea that we cannot improve during the season is just false. In this program, you will continue to train Bat Speed. When the post-season rolls around, we want our Bat Speed to be just as good as it was Opening Day. You will also spend a good amount of time training contact quality and be placed in difficult environments such as mix pitch or Live ABs to address Swing Decisions. We want to stay sharp or improve as the season goes along, not just slowly depreciate over time because we relied too heavily on our offseason training to carry us through the year."},{"id":"A-04","title":"熱身","titleEn":"Warm-Up","page":"5","body":"標準課表中,打者會依照當天是揮速訓練還是技術訓練,執行兩種不同的熱身。兩種熱身都從「偏移旋轉」開始——這個練習著重正確的軀幹旋轉、擊球深度,以及把球打往反方向、中間、拉打方向的揮棒路徑。\n\n【揮速熱身】偏移旋轉之後,揮速訓練的熱身著重揮棒的準備(load)與跨步階段,因為要專注在和「產生揮速的正確旋轉機制」直接相關的動作模式。\n\n【技術熱身】相對地,技術日的熱身著重揮棒路徑和擊球接觸,以目標為導向:要求打者在指定的擊球點、打往指定方向,或打出指定的仰角。\n\n你會發現強度從低開始,用訓練棒和 Plyo 球來控制出力,建立把球擊中所需的動作模式。越接近當天高強度、接近比賽的部分,強度和器材也越接近實戰。\n\n標準熱身中,打者先用訓練棒組低強度揮擊,接著用短棒以相近強度揮擊,再換長棒稍微提高強度,最後用訓練棒組以接近比賽的強度結束。唯一的例外是觸球日:加重棒主要用來增強(potentiation),之後換成細棒和 Plyo 球,把注意力收窄到有效率的擊球接觸。\n\n目的:讓身體準備好執行高揮速/高準確度的揮擊。\n強度:低強度。從 60% 開始,逐漸提高到幾下接近比賽速度的揮擊。\n總揮棒數:40–60 次。","bodyEn":"Warm-Up In a standard program, the hitter executes two different types of warm-ups depending on if they are doing bat speed or a more skill-focused workout. Each warm-up begins with offset rotation - a drill focused on proper torso rotation, contact depth, and bat path for hitting balls to the opposite, middle, and pull sides of the field. Bat Speed Warm-Up Following offset rotation, a bat speed workout will focus on the load and stride phase of the swing. The reasoning for this is to focus more on movement patterns that are directly related to proper rotational mechanics for creating bat speed. Skill Warm-Up In contrast, skill-focused days employ a warm-up focused on bat path and bat/ ball contact. The focus is more target-based where the hitter is asked to hit the ball at a certain contact point, to a certain field, or a certain launch angle. You will notice that the intensity starts low with training bats and Plyo Balls™ regulating effort and movement patterns necessary to complete the task of hitting the ball square. In addition, the intensity and implements become more specific the closer the hitter gets to the high-intensity, game-like portion of the training day. In a standard warm-up, the hitter begins with low-intensity speed trainer swings, moves to short bat swings at similar intensities, progresses to the long bat while ramping up slightly, and finishes at close to game-like intensity with the speed trainers. The only exception is on bat-to-ball days, where weighted bats are used more for potentiation and the hitter starts to narrow focus on efficient bat-ball contact by switching to skinny bats and plyos. Purpose: Potentiate the body for performing high bat speed/high accuracy swings. Intensity: Low intensity. Starting at 60% and building up to a few swings at game-like speeds. Total Swings: 40-60."},{"id":"A-05","title":"訓練棒組","titleEn":"Speed Trainers","page":"7","body":"訓練棒組是所有打擊課表中最主要的揮速訓練工具,包含棒頭加重棒、握把加重棒和輕量棒。加重的兩支比標準球棒重 20%,輕量棒輕 20%。\n\n打者使用訓練棒組首先是為了高意圖的揮速訓練,但也會把它融入日常熱身,並在組內和組間提供變化。","bodyEn":"Free Program Training Bats Speed Trainers Speed trainers are the flagship bat speed training tool for any hitting program. Our speed trainers consist of a barrel-load, handle-load, and underload. The barrel and handle load weigh 20% more than a standard bat, while the underload weighs 20% less. Hitters use the speed trainers for high-intent bat speed training first and foremost. Still, hitters incorporate the speed trainers into their routine to warm up and provide variability within and between sets."},{"id":"A-06","title":"長棒","titleEn":"Long Bat","page":"8","body":"【目的】長棒是建立正確動作順序(kinematic sequence)的首選工具,用來塑造準備與跨步階段,以及擊發姿勢(launch position)的理想動作。\n\n長棒 37 吋/37 盎司的規格提供大幅超重,針對打者整體的機械效率。極端的超重是長棒能幫助建立動作模式的關鍵——它剛好輕到能讓動作和比賽揮擊相似,最明顯的是髖肩分離。比長棒更重的工具,可能讓髖肩分離變得很少,變成「一片式」的揮擊;更輕的工具,則可能無法提供改善時機與順序所需的感覺。長棒的設計剛好提供足夠的超重,對整體時機和順序給出有意義的回饋。\n\n使用長棒的打者常說它讓時機變乾淨了。因為額外的重量,打者必須先獨立轉動骨盆進入擊發姿勢,並依正確順序發力,才能以合理速度擊中球。髖肩分離的時機是關鍵:準時轉動骨盆,並在前腳落地附近達到最大髖肩分離,打者就能回彈、強力轉動軀幹,同時帶動上半身其他部位。\n\n【常見錯誤】最常見的錯誤是把擊球點拉到太前面來「作弊」抵銷超重。雖然用長棒時擊球點本來就會比平常前面,但要注意打者沒有把棒頭推出去碰打擊座或慢拋的球。確保擊球點和順序正確的最好方法,是注意打擊座的位置:要打往中間或拉打方向的空檔時,打擊座要放在本壘板中間、擊發姿勢時前腳的稍後方。","bodyEn":"Long Bat Purpose: The long bat is the preferred implement for patterning a correct kinematic sequence and desired movements in the load and stride phase and the launch position. The long bat’s 37in/37oz dimension provides significant overload that targets a hitter’s overall mechanical efficiency. The extreme overload is key to the long bat’s impact on patterning. The long bat is just light enough to allow for similar kinematics and kinetics to the hitter’s game swing. This is most evident in hip-shoulder separation. A heavier implement than the long bat would likely mean minimal separation and a “one-piece” swing. A lighter implement might not provide the awareness a hitter needs to improve their timing and sequencing. The long bat’s design offers just enough overload to provide meaningful feedback on overall timing and sequencing. Hitters using the long bat often say that it cleans up their timing. Because of the added weight, the hitter must rotate their pelvis independently into the launch position and sequence properly to make contact at reasonable speeds. Proper timing of hip-shoulder separation is the key. By rotating the pelvis on time and reaching peak hip-shoulder separation around the front foot plant, the hitter can recoil and rotate the torso powerfully and at the same time as the rest of the upper body segments. Common Mistakes: The most common mistake is “cheating” the overload by making contact too out in front. Although the long bat will lead to further out in front contact points than normal, it’s important to monitor and make sure the hitter is not pushing the barrel out to meet a ball placed on a tee or a slow flip. The best way to ensure a proper contact point, and correct sequencing, is to monitor the location of the tee. For a ball hit up the middle or to the pull-gap, make sure the tee is placed down the middle and just behind the hitter’s front foot at launch position."},{"id":"A-07","title":"火箭筒棒","titleEn":"Bazooka Bat","page":"9","body":"【目的】火箭筒棒是最極端的超重工具,重 45–50 盎司。重量提供明確的回饋,讓打者更能察覺自己動作模式的執行狀況。\n\n要記得,火箭筒棒通常不會產生和比賽揮擊相似的動作模式——它太重了,無法像平常那樣依序發力並利用伸展-收縮循環。因此打者主要用它來建立上半身的發力順序和揮棒路徑。\n\n上半身各部位在揮擊階段一開始會稍微被拉伸,但直到擊球前一刻都維持等長收縮。由於打者此時較少依賴伸展-收縮循環,需要相當的上半身等長肌力,才能傳遞能量並控制棒頭直到擊球瞬間。\n\n火箭筒棒對上半身連結的訓練,很適合搭配揮棒路徑的練習,因為上半身負責操控棒頭打出紮實擊球。我們通常對遠端部位比較有感覺,所以讓最靠近擊球點的身體部位得到正確回饋非常重要。火箭筒棒能建立強壯、連結的上半身,讓打者體會如何產生揮速,並調整手肘、前臂、手腕和手的動作,在本壘板深處和前方都能紮實擊球。\n\n【常見錯誤】火箭筒棒是為了對付「推棒模式」和「拖棒」而加入訓練棒組的。推棒模式是各級打者最常見、也最難改善的揮棒缺陷之一:打者的手臂和手比軀幹更早、更快開始加速。遠端部位過早推出,會減少從軀幹傳來的能量,造成揮速下降和不理想的代償動作。\n\n拖棒則和推棒相反:軀幹開始往前轉時,前肩被過度拉伸。年輕或力量較弱的打者常見拖棒,因為他們無法準時開始轉動前肩,只能靠下半身和軀幹旋轉把球棒帶過擊球區。","bodyEn":"Bazooka Bat Purpose: The bazooka bat is our most extreme overload implement, weighing 45-50 ounces. The bat's weight provides unmistakable feedback giving the hitter more awareness of the execution of their movement patterns. It’s important to remember that the bazooka bat will typically not elicit similar movement patterns to a hitter’s game swing and game bat. The bat is simply too heavy to sequence and utilize the stretchshortening cycle specifically. For this reason, hitters primarily use the bazooka bat to pattern upper body sequencing and bat path. Remember that the upper body segments experience a slight stretch to start the swing phase but hold isometrically up until the moment before contact. Because hitters are likely not relying on the stretch-shortening cycle as much, hitters require a significant amount of upper body isometric strength to transfer energy and control the barrel up until the moment of contact. The upper body connection patterning of the bazooka bat pairs nicely with a bat path focus because of the upper body’s role in manipulating the barrel to make flush contact. Because we tend to have more feel with distal segments, it’s imperative hitters get the right feedback with the body segments closest to the bat-ball collision. The bazooka bat promotes a strong, connected upper body that allows hitters to gain a feel for creating bat speed and adjusting elbow, forearm, wrist, and hand movement to make flush contact deep, and out in front of the plate. Common Mistakes: We added the bazooka bat to the training bat arsenal to attack the “push pattern” and “bat drag.” The push pattern is one of the more common and difficult swing flaws to improve among hitters of all levels. The push pattern is when the hitter’s arms and hands begin accelerating before and at a faster rate than the torso. The early push of distal segments leads to decreased energy transferred from the torso, leading to lower bat speeds and undesirable compensation patterns from distal segments. Bat drag - the inverse of the push pattern - is when the hitter experiences too much stretch of the lead shoulder as the torso begins rotating forward. We often see bat drag in young hitters or weaker hitters who cannot begin rotating the lead shoulder on time and rely on the lower half and torso rotation to bring the bat through the hitting zone."},{"id":"A-08","title":"短棒","titleEn":"Short Bat","page":"10","body":"【目的】短棒是學習並建立「針對不同高度、位置的球打出紮實擊球」動作方法的首選工具。主要是鼓勵打者在擊發姿勢和揮擊開始時,透過增加膝關節彎曲、髖關節彎曲、軀幹前傾和側彎來調整。\n\n當姿勢讓打者打不到某些位置時,打偏的回饋會非常明顯。尤其是外角低的球——姿勢調整幅度最大——打者會更清楚哪些動作方法能讓他準備打某個位置的球,再調整去打另一個位置。\n\n使用短棒時,打者開始採用的主要策略是「由上往下」:先鎖定好球帶上緣的球,遇到較低的球再調整姿勢。採用這個策略,打者在擊發姿勢落地時會有剛好足以打好球帶上緣的前傾,擊球時的側彎不會超過擊發時的軀幹前傾;遇到較低的球,再增加側彎、膝彎或髖彎來調整。\n\n【常見錯誤】最常見的錯誤是擊發時軀幹前傾太多,以及揮擊時沒有明確的擊球軌跡意圖。\n\n擊發時前傾過多,會讓打者難以執行由上往下的策略:面對好球帶上緣的球,打者必須在揮擊中伸直軀幹,而且擊球時的側彎不能等於或超過擊發時的前傾。這種揮擊特徵可以形容成「拉離球」,看起來就是打者的頭在揮擊過程中往上抬。\n\n要充分發揮短棒的效果,最重要的是帶著「以特定仰角或打往特定方向紮實擊球」的意圖揮擊。因為短棒關注的是針對進壘位置做調整,選定一個擊球軌跡目標很重要,打者才能得到更多回饋,了解為什麼某個位置的球打不出那個軌跡。\n\n例如,打者能把偏高、中間的球打成平飛球到網子後方,卻把低球打成滾地球,那這顆滾地球就不算成功的一球。只要專注於精確的擊球軌跡目標,打者就會學到要做哪些調整,才能在所有位置都打出高品質的擊球。","bodyEn":"Short Bat Purpose: The short bat is the preferred implement for learning and patterning movement solutions to produce flush contact on varying pitch heights and locations. Primarily, the short bat encourages the hitter to adjust by adding knee flexion, hip flexion, and torso forward bend and side bend at the launch position and start of the swing phase. Hitters receive distinct feedback on mishits in locations their posture does not allow them to reach. Especially on pitches low and away in the zone, where posture adjustments are the most significant, hitters become more aware of the movement solutions that allow them to set up to hit a pitch in one area of the zone and adjust to another location. The “top-down” approach is the leading strategy hitters begin to employ when using the short bat. We define the top-down approach as looking for a pitch at the top of the strike zone and adjusting posture for pitches lower in the zone. By employing the top-down strategy, hitters will land in a launch position with enough forward bend to hit a pitch at the top of the zone without adding side bend at contact that exceeds their torso forward bend at launch. For pitches lower, hitters can adjust by adding side bend, knee flexion, or hip flexion. Common Mistakes The most common mistakes are landing with too much torso forward bend at launch and not hitting with a specific ball flight intention. Landing with excess torso forward bend makes it difficult for hitters to execute the top-down approach. For a pitch at the top of the zone,hitters must extend the torso during the swing phase and make contact with side bend that does not equal or exceed torso forward bend at launch. This swing characteristic can be described as “pulling off the ball” and visualized by the hitter’s head moving up throughout the swing phase. The essential aspect for getting the most out of the short bat is swinging with the intent to hit the ball flush at a certain launch angle or part of the field. Because the short bat is concerned with making adjustments for pitch location, it’s important to pick a ball fight to accomplish so the hitter receives more feedback on why they cannot achieve that ball flight on a particular pitch location. For example, if the hitter can hit a line drive to the back of the cage on a pitch up and middle but hits the low pitch for a ground ball, the ground ball would not be considered a successful rep. The hitter will learn what adjustments are needed to achieve high-quality batted balls on all pitch locations by paying close attention to precise ball flight goals."},{"id":"A-09","title":"細棒","titleEn":"Smash Bat","page":"11","body":"【目的】細棒——特別是搭配打擊用 Plyo 球——針對揮棒路徑,以及穩定紮實擊球的感覺。\n\n細棒放大了把棒球或 Plyo 球打正所需的精準度。用細棒揮幾下之後,打者往往會很快調整節奏、時機和揮棒路徑。\n\n和火箭筒棒帶來的動作調整類似,打者會開始更有效率地安排上半身的發力順序,以連結好的軀幹、前肩和雙手開始揮擊。結果就是發展出容錯率更高的揮棒路徑,能在許多不同位置和擊球深度把球打正。\n\n【常見錯誤】打者難以紮實擊球時,最先做的調整之一,通常是降低出力,並減少準備和跨步階段的動作。打者自然會認為放慢速度、減少整體動作,能提高擊中機率、減少失誤。\n\n但放慢和減少動作過頭時,手和手臂會太早主導,變成推棒模式。推棒會降低揮速並限制揮棒深度,打者擊中球的容錯率變小,只能依賴完美抓準時機。\n\n當球棒通過擊球區的攻擊角和來球的下墜角大致吻合時,打者會比較有優勢;以手為主導的推棒模式會限制這一點。\n\n剛開始用細棒紮實擊球可能會很挫折。能持續專注在打球的中心、打出特定擊球軌跡,並在失敗後調整揮棒路徑的打者,觸球能力往往會進步最多,也最能發揮細棒的效果。","bodyEn":"Smash Bat Purpose: The smash bat, especially paired with hitting PlyoCare Balls™, attacks bat path and feel for making consistent, flush contact. The smash bat overloads the precision required to hit a baseball or Plyo Ball ™ square. After a few reps with the skinny bat, hitters tend to make quick adjustments to their rhythm, timing, and bat path. Like movement adjustments seen with the bazooka bat, hitters will begin to sequence their upper body more efficiently and initiate the swing phase with a connected torso, lead shoulder, and hands. In turn, hitters develop a higher room for error bat path capable of squaring the ball up at many different locations and contact depths. Common Mistakes: When hitters struggle to make flush contact, one of the first adjustments they will make is to lower their effort level and reduce movement in the load and stride phase. Naturally, hitters believe that reducing speed and limiting overall motion will give them a better chance to make contact and limit error. When hitters slow down and reduce movement too much, the hands and arms begin to take over too early, resulting in a push pattern. The push pattern reduces speed and limits swing depth. Subsequently, hitters have less room for error to make contact and rely on their ability to time up the pitch perfectly. Hitters have an advantage when their bat moves through the zone at attack angles that roughly match the descent angle of the pitch. A hand-dominant push pattern will limit their ability to do so. At first, making flush contact with the smash bat can be a frustrating experience. Hitters who maintain their focus on hitting the center of the ball, producing a specific ball flight, and making adjustments to their bat path after unsuccessful reps, tend to improve their bat-to-ball skills and get the most out of the smash bat."},{"id":"A-10","title":"揮棒感測器基本概念","titleEn":"Basics of Bat Sensors","page":"12","body":"揮棒感測器(例如 Blast Motion)是打者評估、訓練和整體發展過程中不可或缺的工具。它是衡量揮速及其他數據最簡單的方式,能幫助判斷打者該接受哪一類課表,以及發展過程中需要處理哪些數據。\n\n擊球初速和擊球仰角是擊球軌跡中最重要的兩項數據。那麼揮棒感測器的哪些數據,能幫助我們打出更理想的擊球軌跡?擊球初速和揮速的關係最直接:簡單說,揮得越快,球就打得越強。\n\n影響擊球仰角的因素很多,但最能說明問題的是「攻擊角」(Attack Angle):擊球瞬間球棒相對於地面的行進角度。如果揮棒路徑在擊球時往下,攻擊角就是負的;如果往上揮得很陡,攻擊角就是正的;完全水平的話,攻擊角大約是 0°。\n\n運用這些數據改善擊球軌跡的例子:我們建議的攻擊角範圍是 -4° 到 16°。為什麼?這個範圍能最大程度吻合各種球路的下墜角,同時仍能以良好的仰角把球打正。簡單說,想把球打正,攻擊角就要盡量接近來球的下墜角。","bodyEn":"Bat Sensors, like Blast Motion, are an essential tool for the assessment, training, and overall development process for hitters. It is the easiest tool to gauge Bat Speed and other metrics that make it easier to identify which type of programming a hitter should be receiving and what metrics that need to be addressed in the hitter's development process. With Exit Velocity and Launch Angle being the two most prominent metrics in batted ball flight, what metrics can we take from a bat sensor to help us achieve more optimal ball flight? Exit Velocity is most directly correlated to Bat Speed. Simply put, if I can swing the bat faster, I can hit the ball harder. Lots of things go into the launch angle created at bat-ball collision, but the most telling of those metrics is Attack Angle. Attack Angle tells us the angle the bat is traveling at contact in relation to the ground. In other terms, if you have a bat path that works downhill at contact, you will produce a negative attack angle. Conversely, if you swing steeply uphill, you will produce a positive attack angle. If you swing perfectly flat, your attack angle should be right around 0°. An example of how to put these metrics to use to produce better ball flight would go something like this: Our recommended Attack Angle range is -4 to 16 degrees. Why? This gives us the widest range of matching descent angle of pitches and still squaring balls up at good Launch Angles. Basically, if I want to square the ball up, I want my Attack Angle to be as close to matching the Pitch Descent Angle as possible."},{"id":"A-11","title":"課表類型說明","titleEn":"Workouts","page":"15","body":"【揮速日 Bat Speed】幾乎完全把「紮實擊球」和「盡全力快速揮棒」這兩個意圖分開。概念和投球一樣:用稍重或稍輕的球棒以最大意圖揮擊,發展更有效率的運動單元徵召模式,提升揮棒速度。\n\n【比賽日 Competition】標準的「技術」日,可以安排涵蓋三大能力的訓練,也可以當作賽前打擊練習,或安排實戰打席、短距離打擊。\n\n【觸球日 Bat to Ball】高度技術性的訓練日,唯一重點是提升擊中球、尤其是紮實擊中球的能力。特色是使用迷你 Plyo 球和細棒,並以較低強度揮擊,反映速度和精準度之間的取捨。\n\n【選球日 Swing Decisions】包含技術日的標準練習和原則,但把打者的注意力導向進壘位置,並搭配擊球軌跡目標。除了引導打者注意好球帶的回饋,也著重執行打擊策略——這裡的「策略」是指鎖定某個區域或某個球種,並搭配明確的擊球軌跡目標。事先減少選項可以爭取反應時間,進而提升出力、爆發力和整體表現。\n\n【混合日 Hybrid】結合技術日的熱身和技術練習,並在技術練習開始前加入幾輪打擊座或拋打的高意圖揮速訓練。用來安排高意圖的加重棒揮擊,又不會像純揮速日那樣疲勞、需要較長恢復。也適合用在打者的漸進恢復期。","bodyEn":"Bat Speed Bat speed days are meant to (almost) completely separate the intention of hitting the ball flush and moving the bat as fast as you can. The concepts are the same as pitching. By swinging slightly over/ underweighted implements at absolute maximum intent, we develop more efficient motor unit recruitment patterns for faster bat speeds. Competition Competition days are thought of as the standard \"skill-focus\" day and allow the ability to program a workout that hits all areas of the Big 3, acts as a pre-game BP, and a medium to program live at-bats or short box. Bat to Ball Bat to ball days are highly technical days with the sole focus of improving one's ability to make contact, and specifically, make flush contact. The signature of bat to ball days are the use of mini-plyos and skinny bats + lower intensity swings to represent the speed/ accuracy trade-off we tend to see with smash factor/talent level. Swing Decisions Swing decision days encompass the standard drills and principles of a skill-based workout but direct the hitter’s attention to pitch location, along with an accompanying ball flight goal. In addition to nudging the hitter towards strike zone feedback, swing decision days also focus on executing an approach. An \"approach\" in this case is defined as looking for a certain area of the zone, or a certain pitch type with a specific ball flight goal attached. We believe having an approach is important because reducing options beforehand can increase a hitter's reaction time therefore improving force production, power output, and overall performance. Hybrid Hybrid days combine the warm-up and skill work of a skill-focused day with a few rounds of high-intent bat speed work off of the tee or flips to start a hitter's skill work. Hybrids are used as a way to program high intent weighted bat swings without the fatigue and potential longer recovery times of a pure bat speed day. Hybrids are also useful for a hitter's on-ramping period. Workouts"}],"equipment":{"Weighted Bats":{"zh":"訓練棒組","desc":"棒頭加重、握把加重、輕量棒三支一組(Speed Trainers)","substitute":"","url":"https://www.drivelinebaseball.com/product/driveline-bat-speed-trainers/"},"Barrel Load":{"zh":"棒頭加重棒","desc":"比標準球棒重 20%,重量集中在棒頭","substitute":"","url":"https://www.drivelinebaseball.com/product/driveline-bat-speed-trainers/"},"Handle Load":{"zh":"握把加重棒","desc":"比標準球棒重 20%,重量集中在握把","substitute":"","url":"https://www.drivelinebaseball.com/product/driveline-bat-speed-trainers/"},"Underload":{"zh":"輕量棒","desc":"比標準球棒輕 20%","substitute":"","url":"https://www.drivelinebaseball.com/product/driveline-bat-speed-trainers/"},"Long Bat":{"zh":"長棒","desc":"37 吋 / 37 盎司的超重訓練棒,用來建立正確的動作順序","substitute":"","url":"https://www.drivelinebaseball.com/product/driveline-long-training-bat/"},"Short Bat":{"zh":"短棒","desc":"用來學習針對不同高度、位置的球調整姿勢","substitute":"","url":"https://www.drivelinebaseball.com/product/driveline-short-training-bat/"},"Smash Bat":{"zh":"細棒","desc":"棒身細的訓練棒,提高紮實擊球所需的精準度","substitute":"","url":"https://www.drivelinebaseball.com/product/driveline-smash-training-bat/"},"Bazooka Bat":{"zh":"火箭筒棒","desc":"45–50 盎司的極重訓練棒,用來練上肢順序與揮棒路徑","substitute":"","url":"https://www.drivelinebaseball.com/product/axe-bat-wood-training-bats"},"Game Bat":{"zh":"比賽用棒","desc":"自己平常比賽用的球棒","substitute":"","url":""},"Random Bat":{"zh":"隨機球棒","desc":"每球隨機更換不同的球棒","substitute":"","url":""},"Hitting Plyo":{"zh":"打擊用 Plyo 球","desc":"加重軟球,可安全地在近距離打擊","substitute":"","url":"https://www.drivelinebaseball.com/product/hitting-kit/"},"Mini Hitting Plyo":{"zh":"迷你打擊 Plyo 球","desc":"體積較小的 Plyo 球,提高擊球難度","substitute":"","url":"https://www.drivelinebaseball.com/product/hitting-kit/"},"Baseball":{"zh":"棒球","desc":"","substitute":"","url":""},"Bat Sensor":{"zh":"揮棒感測器","desc":"例如 Blast Motion,可量測揮棒速度、攻擊角等數據","substitute":"","url":"https://www.drivelinebaseball.com/product/blast-motion-bat-sensor/"}},"env":{"Tee or Flips":"打擊座或拋打","BP or Machine":"餵球或發球機"},"purposes":["打擊","投球","內野守備","外野守備","捕手","重訓肌力","身體操控","棒球知識","守備","跑壘"]}</script>
+<script>
+"use strict";
+const DATA = JSON.parse(document.getElementById("data").textContent);
+const $ = (s, el = document) => el.querySelector(s);
+const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+  del(k) { try { localStorage.removeItem(k); } catch {} },
+};
+const LOCAL_KEY = "bt.localItems";
+const SRC = { "教練": "教練", "Driveline-打擊": "Driveline 打擊", "本機新增": "本機新增" };
+const INTENSITY = { "Game Like": "比賽強度" };
+
+let localItems = store.get(LOCAL_KEY, []);
+let byId = {};
+function allItems() { return DATA.items.concat(localItems); }
+function reindex() { byId = {}; allItems().forEach(it => byId[it.id] = it); }
+reindex();
+
+const eqZh = en => (DATA.equipment[en] && DATA.equipment[en].zh) || en;
+const envZh = en => DATA.env[en] || en;
+const shortWorkout = w => w.nameZh.split("(")[0].replace(/\s+/g, "");
+const workoutByCode = Object.fromEntries(DATA.workouts.map(w => [w.code, w]));
+
+function textOn(hex) {
+  const n = parseInt(hex.replace("#", ""), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  return (0.299 * r + 0.587 * g + 0.114 * b) > 160 ? "#1b2333" : "#fff";
+}
+
+// 反查:每個項目出現在哪些菜單/課表
+const usage = {};
+function addUse(id, u) { (usage[id] = usage[id] || []).push(u); }
+DATA.menus.forEach(m => m.steps.forEach(st => {
+  const link = `#/menus?sheet=${encodeURIComponent(m.sheet)}&aud=${encodeURIComponent(m.audience)}`;
+  const base = `${m.sheet} › ${m.audience} › ${m.category}`;
+  st.itemIds.forEach(id => addUse(id, { text: `${base} › ${st.title}`, link }));
+  st.branches.forEach(b => b.itemIds.forEach(id => addUse(id, { text: `${base} › ${st.title} › ${b.label}:${b.title}`, link })));
+}));
+DATA.workouts.forEach(w => [["warmup", "熱身"], ["skill", "技術"]].forEach(([k, lab]) => w[k].forEach(r => addUse(r.itemId, {
+  text: `Driveline ${w.nameZh} › ${lab} › ${eqZh(r.bat)} ${r.sets}×${r.reps} ${INTENSITY[r.intensity] || r.intensity}`,
+  link: `#/dl?tab=list&w=${encodeURIComponent(w.code)}`,
+}))));
+
+// ---------- 影片 ----------
+function videoInfo(url) {
+  let u; try { u = new URL(url); } catch { return { kind: "other", url }; }
+  const host = u.hostname.replace(/^(www|m)\./, "");
+  if (host === "youtu.be") return { kind: "yt", id: u.pathname.slice(1), url };
+  if (host.endsWith("youtube.com")) {
+    if (u.searchParams.get("v")) return { kind: "yt", id: u.searchParams.get("v"), url };
+    const s = u.pathname.match(/\/(shorts|embed|live)\/([\w-]+)/); if (s) return { kind: "yt", id: s[2], url };
+    if (u.searchParams.get("list")) return { kind: "ytlist", id: u.searchParams.get("list"), url };
+  }
+  if (host.endsWith("instagram.com")) return { kind: "ig", url };
+  if (host.endsWith("facebook.com") || host === "fb.watch") return { kind: "fb", url };
+  return { kind: "other", url };
+}
+function videoBlock(url, i) {
+  const v = videoInfo(url);
+  const ext = { yt: ["yt", "在 YouTube 開啟"], ytlist: ["yt", "在 YouTube 開啟播放清單"], ig: ["ig", "在 Instagram 開啟"], fb: ["fb", "在 Facebook 開啟"], other: ["", "開啟連結"] }[v.kind];
+  const link = `<a class="ext ${ext[0]}" href="${esc(v.url)}" target="_blank" rel="noopener">${ext[1]} ↗</a>`;
+  if (v.kind === "yt" || v.kind === "ytlist") {
+    const src = v.kind === "yt" ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?autoplay=1&rel=0&playsinline=1`
+      : `https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(v.id)}&autoplay=1`;
+    const fileNote = location.protocol === "file:" ? `<div class="hint small" style="margin-top:6px">直接開啟檔案時 YouTube 可能無法內嵌播放,請改按「在 YouTube 開啟」。</div>` : "";
+    return `<div class="video" data-src="${esc(src)}"><button type="button" data-play="${i}"><span>▶ 播放影片</span></button></div><div class="vlinks">${link}</div>${fileNote}`;
+  }
+  return `<div class="vlinks">${link}</div>`;
+}
+
+// ---------- 共用 ----------
+const ICONS = {
+  items: '<path d="M4 5h16M4 12h16M4 19h10"/>',
+  menus: '<path d="M6 4v16M6 6h10l-2 3 2 3H6"/>',
+  dl: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  learn: '<path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h6"/>',
+  add: '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+};
+const TABS = [["items", "項目庫"], ["menus", "隊內菜單"], ["dl", "Driveline"], ["learn", "知識"], ["add", "新增"]];
+$("#tabs").innerHTML = TABS.map(([k, t]) => `<a href="#/${k}" data-tab="${k}"><svg viewBox="0 0 24 24">${ICONS[k]}</svg>${t}</a>`).join("");
+$("#foot").innerHTML = `資料更新:${esc(DATA.builtAt)}・教練項目來自《棒球訓練2026》・Driveline 內容翻譯自 Driveline Baseball《6 Week In-Season &amp; Off-Season Hitting Program》,僅供隊內訓練使用,原始資料請見 <a href="https://www.drivelinebaseball.com/" target="_blank" rel="noopener">drivelinebaseball.com</a>。`;
+
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 1800); }
+function chip(label, on, attrs = "", n) { return `<button type="button" class="chip${on ? " on" : ""}" ${attrs}>${esc(label)}${n != null ? `<span class="n">${n}</span>` : ""}</button>`; }
+function srcTag(it) {
+  if (it.source === "教練") return "";
+  return `<span class="tag ${it.source === "本機新增" ? "src-local" : "src-dl"}">${esc(SRC[it.source] || it.source)}${it.source === "本機新增" ? "・尚未同步" : ""}</span>`;
+}
+function pill(id) {
+  const it = byId[id]; if (!it) return "";
+  return `<a class="pill" href="#/item/${encodeURIComponent(id)}"><b>${esc(it.id.startsWith("D-") ? it.id : "#" + it.id)}</b>${esc(it.name)}${it.videos.length ? " ▸" : ""}</a>`;
+}
+function pills(ids) {
+  if (!ids.length) return "";
+  return `<div class="pills">${ids.length > 1 ? '<span class="any">任選</span>' : ""}${ids.map(pill).join("")}</div>`;
+}
+function paragraphs(text) {
+  return text.split(/\n\s*\n/).map(p => {
+    const html = esc(p).replace(/【(.+?)】/g, '<span class="hd">$1</span> ').replace(/\n/g, "<br>");
+    return `<p>${html}</p>`;
+  }).join("");
+}
+
+// ---------- 項目庫 ----------
+const itemState = { q: "", src: "", purpose: "", part: "" };
+function itemMatches(it, st, skip) {
+  if (skip !== "src" && st.src && it.source !== st.src) return false;
+  if (skip !== "purpose" && st.purpose && it.purpose !== st.purpose) return false;
+  if (skip !== "part" && st.part && it.part !== st.part) return false;
+  if (st.q) {
+    const hay = [it.id, it.name, it.nameEn, it.purpose, it.part, it.keyPoints, it.note].join(" ").toLowerCase();
+    if (!st.q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w))) return false;
+  }
+  return true;
+}
+function renderItems(q) {
+  ["src", "purpose", "q", "part"].forEach(k => { if (q.has(k)) itemState[k] = q.get(k); });
+  $("#app").innerHTML = `
+    <div class="search"><input id="q" type="search" placeholder="搜尋名稱、技術要點、備註、英文…" value="${esc(itemState.q)}" autocomplete="off"></div>
+    <div id="filters"></div><div class="count" id="count"></div><div class="list grid2" id="list"></div>`;
+  $("#q").addEventListener("input", e => { itemState.q = e.target.value.trim(); drawItems(); });
+  $("#filters").addEventListener("click", e => {
+    const b = e.target.closest("[data-f]"); if (!b) return;
+    const k = b.dataset.f, v = b.dataset.v;
+    itemState[k] = itemState[k] === v ? "" : v; drawItems();
+  });
+  $("#filters").addEventListener("change", e => { if (e.target.id === "part") { itemState.part = e.target.value; drawItems(); } });
+  drawItems();
+}
+function drawItems() {
+  const items = allItems();
+  const cnt = (skip, key) => items.reduce((m, it) => { if (itemMatches(it, itemState, skip)) m[it[key]] = (m[it[key]] || 0) + 1; return m; }, {});
+  const srcN = cnt("src", "source"), purN = cnt("purpose", "purpose"), partN = cnt("part", "part");
+  const sources = Object.keys(SRC).filter(s => items.some(it => it.source === s));
+  const purposes = DATA.purposes.concat(Object.keys(purN).filter(p => !DATA.purposes.includes(p))).filter(p => p && (purN[p] || itemState.purpose === p));
+  const parts = [...new Set(items.map(it => it.part).filter(Boolean))];
+  $("#filters").innerHTML = `
+    <div class="chips">${chip("全部來源", !itemState.src, 'data-f="src" data-v=""')}${sources.map(s => chip(SRC[s], itemState.src === s, `data-f="src" data-v="${esc(s)}"`, srcN[s] || 0)).join("")}</div>
+    <div class="chips">${chip("全部目的", !itemState.purpose, 'data-f="purpose" data-v=""')}${purposes.map(p => chip(p, itemState.purpose === p, `data-f="purpose" data-v="${esc(p)}"`, purN[p] || 0)).join("")}</div>
+    <div class="filters"><span class="small muted">部位</span><select id="part"><option value="">全部</option>${parts.map(p => `<option ${itemState.part === p ? "selected" : ""} value="${esc(p)}">${esc(p)}(${partN[p] || 0})</option>`).join("")}</select></div>`;
+  const shown = items.filter(it => itemMatches(it, itemState));
+  $("#count").textContent = `共 ${shown.length} 項`;
+  $("#list").innerHTML = shown.length ? shown.map(it => `
+    <a class="card item" href="#/item/${encodeURIComponent(it.id)}">
+      <div class="meta"><span class="num">${esc(it.id.startsWith("D-") || it.id.startsWith("L-") ? it.id.replace(/^L-.*/, "新") : "#" + it.id)}</span>${srcTag(it)}${it.purpose ? `<span class="tag">${esc(it.purpose)}</span>` : ""}${it.part ? `<span class="muted">${esc(it.part)}</span>` : ""}${it.videos.length ? '<span class="vid">▶ 影片</span>' : ""}</div>
+      <h3>${esc(it.name)}${it.nameEn && it.nameEn !== it.name ? `<small>${esc(it.nameEn)}</small>` : ""}</h3>
+      ${it.keyPoints ? `<p class="kp">${esc(it.keyPoints)}</p>` : ""}
+      ${it.note ? `<p class="note">備註:${esc(it.note)}</p>` : ""}
+    </a>`).join("") : `<div class="empty card">找不到符合的項目,試試其他關鍵字或清除篩選。</div>`;
+}
+
+// ---------- 項目詳細 ----------
+function openSheet(id) {
+  const it = byId[id];
+  const sh = $("#sheet");
+  if (!it) {
+    sh.innerHTML = `<div class="sheet-h"><b>找不到項目</b><button class="x" data-close aria-label="關閉">×</button></div><div class="sheet-c"><p>項目「${esc(id)}」不存在,可能已更新編號。</p></div>`;
+  } else {
+    const uses = usage[it.id] || [];
+    const eq = (it.equipment || []).map(en => {
+      const e = DATA.equipment[en] || {};
+      return `<li>${esc(eqZh(en))} <span class="en">${esc(en)}</span>${e.substitute ? `<div class="subst">替代:${esc(e.substitute)}</div>` : ""}</li>`;
+    }).join("");
+    sh.innerHTML = `
+      <div class="sheet-h"><span class="num">${esc(it.id.startsWith("L-") ? "本機新增" : (it.id.startsWith("D-") ? it.id : "#" + it.id))}</span>${srcTag(it)}<button class="x" data-close aria-label="關閉">×</button></div>
+      <div class="sheet-c">
+        <h2>${esc(it.name)}</h2>${it.nameEn && it.nameEn !== it.name ? `<div class="muted">${esc(it.nameEn)}</div>` : ""}
+        <div class="meta" style="margin-top:8px">${it.purpose ? `<span class="tag">${esc(it.purpose)}</span>` : ""}${it.part ? `<span class="tag">部位:${esc(it.part)}</span>` : ""}</div>
+        ${it.keyPoints ? `<div class="sec"><h4>技術要點</h4><p>${esc(it.keyPoints)}</p></div>` : ""}
+        <div class="sec"><h4>影片</h4>${it.videos.length ? it.videos.map(videoBlock).join("") : '<p class="muted small">沒有影片連結</p>'}</div>
+        ${it.note ? `<div class="sec"><h4>備註</h4><p>${esc(it.note)}</p></div>` : ""}
+        ${eq ? `<div class="sec"><h4>使用器材</h4><ul style="margin:0;padding-left:18px">${eq}</ul></div>` : ""}
+        ${it.related && it.related.length ? `<div class="sec"><h4>相關項目</h4>${pills(it.related).replace('<span class="any">任選</span>', "")}</div>` : ""}
+        ${uses.length ? `<div class="sec"><h4>出現在</h4><ul class="usage">${uses.map(u => `<li><a href="${esc(u.link)}">${esc(u.text)}</a></li>`).join("")}</ul></div>` : ""}
+        ${it.source === "本機新增" ? `<div class="btn-row"><button class="btn danger" data-del-local="${esc(it.id)}">刪除這個本機項目</button></div>` : ""}
+      </div>`;
+  }
+  sh.scrollTop = 0;
+  sh.classList.add("open"); $("#sheetBg").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeSheetUI() {
+  const sh = $("#sheet");
+  sh.classList.remove("open"); $("#sheetBg").classList.remove("open");
+  document.body.style.overflow = "";
+  sh.querySelectorAll("iframe").forEach(f => f.remove());
+}
+let navFromApp = false;
+function requestClose() {
+  if (navFromApp) history.back(); else location.hash = lastTabHash || "#/items";
+}
+$("#sheetBg").addEventListener("click", requestClose);
+$("#sheet").addEventListener("click", e => {
+  if (e.target.closest("[data-close]")) return requestClose();
+  const play = e.target.closest("[data-play]");
+  if (play) {
+    const box = play.parentElement;
+    box.innerHTML = `<iframe src="${esc(box.dataset.src)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="影片"></iframe>`;
+  }
+  const del = e.target.closest("[data-del-local]");
+  if (del && confirm("確定刪除這個本機新增的項目?")) {
+    localItems = localItems.filter(x => x.id !== del.dataset.delLocal);
+    store.set(LOCAL_KEY, localItems); reindex(); lastTabHash = ""; toast("已刪除"); requestClose();
+  }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && $("#sheet").classList.contains("open")) requestClose(); });
+
+// ---------- 隊內菜單 ----------
+const menuState = { sheet: "", aud: "" };
+function renderMenus(q) {
+  const sheets = [...new Set(DATA.menus.map(m => m.sheet))];
+  if (q.get("sheet")) menuState.sheet = q.get("sheet");
+  if (!sheets.includes(menuState.sheet)) menuState.sheet = sheets[0];
+  const inSheet = DATA.menus.filter(m => m.sheet === menuState.sheet);
+  const auds = [...new Set(inSheet.map(m => m.audience))];
+  if (q.get("aud")) menuState.aud = q.get("aud");
+  if (!auds.includes(menuState.aud)) menuState.aud = auds[0];
+  const groups = inSheet.filter(m => m.audience === menuState.aud);
+  $("#app").innerHTML = `
+    <div class="chips" id="sheets">${sheets.map(s => chip(s.replace("組合", ""), s === menuState.sheet, `data-sheet="${esc(s)}"`)).join("")}</div>
+    ${auds.length > 1 ? `<div class="seg" id="auds">${auds.map(a => `<button type="button" class="${a === menuState.aud ? "on" : ""}" data-aud="${esc(a)}">${esc(a)}</button>`).join("")}</div>` : ""}
+    ${groups.map(g => `
+      <section class="card group"><h3>${esc(g.category === "special" ? "位置專項" : g.category)}</h3>
+        <ol class="steps">${g.steps.map((st, i) => `
+          <li><div class="step-n">${i + 1}</div><div class="step-b">
+            <h4>${esc(st.title)}</h4>${st.note ? `<p class="note">${esc(st.note)}</p>` : ""}
+            ${pills(st.itemIds)}
+            ${st.branches.map(b => `<div class="branch"><span class="tag">${esc(b.label)}</span><span class="bt">${esc(b.title)}</span>${b.note ? `<p class="note">${esc(b.note)}</p>` : ""}${pills(b.itemIds)}</div>`).join("")}
+          </div></li>`).join("")}
+        </ol></section>`).join("")}`;
+  $("#app").onclick = e => {
+    const s = e.target.closest("[data-sheet]"), a = e.target.closest("[data-aud]");
+    if (s) { menuState.sheet = s.dataset.sheet; menuState.aud = ""; go(`#/menus?sheet=${encodeURIComponent(menuState.sheet)}`); }
+    if (a) { menuState.aud = a.dataset.aud; go(`#/menus?sheet=${encodeURIComponent(menuState.sheet)}&aud=${encodeURIComponent(menuState.aud)}`); }
+  };
+}
+
+// ---------- Driveline ----------
+const dlSel = Object.assign({ tab: "cycle", cycle: 0, week: 0, day: 1 }, store.get("bt.dlSel", {}));
+function drillRow(r, checkKey, idx, checked) {
+  const it = byId[r.itemId] || { name: r.itemId, nameEn: "", videos: [] };
+  const sub = [r.bat, r.ball].map(en => DATA.equipment[en] && DATA.equipment[en].substitute ? `${eqZh(en)} → ${DATA.equipment[en].substitute}` : "").filter(Boolean);
+  return `<li class="drill${checked ? " done" : ""}">
+    ${checkKey ? `<input type="checkbox" data-ck="${idx}" ${checked ? "checked" : ""} aria-label="完成 ${esc(it.name)}">` : ""}
+    <div class="dmain"><a class="dname" href="#/item/${encodeURIComponent(r.itemId)}">${esc(it.name)}</a>${it.nameEn && it.nameEn !== it.name ? `<span class="en">${esc(it.nameEn)}</span>` : ""}${it.videos.length ? ' <span class="vid">▶</span>' : ""}
+      <div class="dmeta">${esc(eqZh(r.bat))} · ${esc(eqZh(r.ball))} · ${esc(envZh(r.env))}</div>
+      ${sub.length ? `<div class="subst">替代:${esc(sub.join("、"))}</div>` : ""}</div>
+    <div class="dnum"><b>${esc(r.sets)}×${esc(r.reps)}</b><span class="int">${esc(INTENSITY[r.intensity] || r.intensity)}</span></div></li>`;
+}
+function workoutCard(w, checkKey) {
+  const rows = w.warmup.concat(w.skill);
+  const checks = checkKey ? store.get(checkKey, []) : [];
+  const swings = rows.reduce((s, r) => s + (+r.sets || 0) * (+r.reps || 0), 0);
+  const done = checks.filter(Boolean).length;
+  const wt = textOn(w.color);
+  let i = 0;
+  const seg = (title, list) => `<div class="seg-title">${title}</div><ul class="drills">${list.map(r => drillRow(r, checkKey, i, checks[i++])).join("")}</ul>`;
+  return `<section class="card workout" style="--wc:${esc(w.color)};--wt:${wt}" data-w="${esc(w.code)}">
+    <header><h3>${esc(w.nameZh)}</h3><small>${esc(w.nameEn)}</small></header>
+    <div class="wbody">
+      <details><summary>這天在練什麼?</summary><p class="small">${esc(w.desc)}</p></details>
+      <div class="wstats"><span>共 ${rows.length} 個練習</span><span>總揮棒約 ${swings} 下</span>${checkKey ? `<span>已完成 ${done}/${rows.length}</span>` : ""}</div>
+      ${seg("熱身 Warm-up", w.warmup)}${seg("技術 Skill Work", w.skill)}
+      ${checkKey ? `<div class="btn-row"><button class="btn" data-clear="${esc(checkKey)}">清除這天的勾選</button></div>` : ""}
+    </div></section>`;
+}
+function renderDL(q) {
+  if (q.get("tab")) dlSel.tab = q.get("tab");
+  const focusW = q.get("w");
+  const tabs = [["cycle", "週期課表"], ["list", "課表一覽"], ["eq", "器材"]];
+  let body = "";
+  if (dlSel.tab === "cycle") {
+    dlSel.cycle = Math.min(dlSel.cycle, DATA.cycles.length - 1);
+    const c = DATA.cycles[dlSel.cycle];
+    dlSel.week = Math.min(dlSel.week, c.weeks.length - 1);
+    const wk = c.weeks[dlSel.week];
+    const code = wk.days[dlSel.day];
+    const w = workoutByCode[code];
+    body = `
+      <div class="seg">${DATA.cycles.map((cy, i) => `<button type="button" class="${i === dlSel.cycle ? "on" : ""}" data-cycle="${i}">${esc(cy.name)}</button>`).join("")}</div>
+      <div class="weeks">${c.weeks.map((x, i) => `<button type="button" class="${i === dlSel.week ? "on" : ""}" data-week="${i}">第${esc(x.week)}週</button>`).join("")}</div>
+      <div class="phase">階段:<b>${esc(wk.phase)}</b></div>
+      <div class="days">${wk.days.map((d, i) => {
+        const ww = workoutByCode[d];
+        return ww ? `<button type="button" class="day${i === dlSel.day ? " on" : ""}" style="--wc:${esc(ww.color)};--wt:${textOn(ww.color)}" data-day="${i}"><small>Day ${i + 1}</small>${esc(shortWorkout(ww))}</button>`
+          : `<button type="button" class="day rest${i === dlSel.day ? " on" : ""}" data-day="${i}"><small>Day ${i + 1}</small>${esc(d || "—")}</button>`;
+      }).join("")}</div>
+      ${w ? workoutCard(w, `bt.check.${dlSel.cycle}.${dlSel.week}.${dlSel.day}`) : `<div class="card empty">Day ${dlSel.day + 1} 是<b>${esc(code || "休息")}</b>日,好好恢復。</div>`}
+      <p class="small muted">提示:勾選紀錄只存在這台裝置的瀏覽器。週期與課表原理請看「知識」分頁。</p>`;
+  } else if (dlSel.tab === "list") {
+    body = DATA.workouts.map(w => `<details class="card article" ${w.code === focusW ? "open" : ""} id="w-${esc(w.code)}">
+      <summary><span class="tag" style="background:${esc(w.color)};color:${textOn(w.color)}">${esc(shortWorkout(w))}</span><b>${esc(w.nameZh)}</b>${w.code.endsWith("-OFF") ? '<span class="muted small">休賽季版</span>' : w.code.endsWith("-IN") ? '<span class="muted small">賽季中版</span>' : ""}</summary>
+      <div class="abody">${workoutCard(w, null)}</div></details>`).join("");
+  } else {
+    const used = new Set(DATA.workouts.flatMap(w => w.warmup.concat(w.skill).flatMap(r => [r.bat, r.ball])));
+    body = `<p class="small muted">「替代方案」由教練在 Excel 的「器材」工作表填寫,填好後課表會自動顯示替代器材。</p><div class="list">` +
+      Object.entries(DATA.equipment).map(([en, e]) => `<div class="card eq"><h4>${esc(e.zh)} <span class="en">${esc(en)}</span>${used.has(en) ? "" : ' <span class="tag">原理說明用</span>'}</h4>
+        ${e.desc ? `<div class="small">${esc(e.desc)}</div>` : ""}
+        <div class="small" style="margin-top:4px">${e.substitute ? `<span style="color:var(--ok)">替代方案:${esc(e.substitute)}</span>` : '<span class="muted">替代方案:尚未設定</span>'}</div>
+        ${e.url ? `<div class="small" style="margin-top:4px"><a href="${esc(e.url)}" target="_blank" rel="noopener">Driveline 商品頁 ↗</a></div>` : ""}</div>`).join("") + "</div>";
+  }
+  $("#app").innerHTML = `<div class="seg" id="dltabs">${tabs.map(([k, t]) => `<button type="button" class="${k === dlSel.tab ? "on" : ""}" data-tab="${k}">${t}</button>`).join("")}</div>${body}`;
+  store.set("bt.dlSel", { tab: dlSel.tab, cycle: dlSel.cycle, week: dlSel.week, day: dlSel.day });
+  if (focusW) { const el = document.getElementById("w-" + focusW); if (el) el.scrollIntoView({ block: "start" }); }
+  $("#app").onclick = e => {
+    const t = e.target.closest("#dltabs [data-tab]");
+    if (t) { dlSel.tab = t.dataset.tab; return go("#/dl?tab=" + dlSel.tab); }
+    const cy = e.target.closest("[data-cycle]"); if (cy) { dlSel.cycle = +cy.dataset.cycle; dlSel.week = 0; return renderDL(new URLSearchParams()); }
+    const wk = e.target.closest("[data-week]"); if (wk) { dlSel.week = +wk.dataset.week; return renderDL(new URLSearchParams()); }
+    const d = e.target.closest("[data-day]"); if (d) { dlSel.day = +d.dataset.day; return renderDL(new URLSearchParams()); }
+    const cl = e.target.closest("[data-clear]"); if (cl) { store.del(cl.dataset.clear); toast("已清除勾選"); return renderDL(new URLSearchParams()); }
+  };
+  $("#app").onchange = e => {
+    const ck = e.target.closest("[data-ck]"); if (!ck) return;
+    const card = ck.closest(".workout");
+    const key = card.querySelector("[data-clear]").dataset.clear;
+    const arr = store.get(key, []); arr[+ck.dataset.ck] = ck.checked; store.set(key, arr);
+    ck.closest(".drill").classList.toggle("done", ck.checked);
+    const total = card.querySelectorAll("[data-ck]").length, done = card.querySelectorAll("[data-ck]:checked").length;
+    card.querySelector(".wstats span:last-child").textContent = `已完成 ${done}/${total}`;
+    if (done === total) toast("今天的課表完成了!");
+  };
+}
+
+// ---------- 知識 ----------
+function renderLearn() {
+  $("#app").innerHTML = `
+    <div class="card intro"><p><b>Driveline 打擊課表</b>:先評估打者弱點(揮速/觸球/選球),再依休賽季或賽季中週期安排每天的課表。</p>
+      <p class="small muted">動作的中文名稱是暫譯,英文為原名。所有 Driveline 動作都在項目庫裡,可以用來源篩選。</p>
+      <div class="btn-row"><a class="btn" href="#/items?src=${encodeURIComponent("Driveline-打擊")}">看 Driveline 動作</a><a class="btn" href="#/dl?tab=cycle">看週期課表</a></div></div>
+    ${DATA.articles.map(a => `<details class="card article"><summary><b>${esc(a.title)}</b><span class="en">${esc(a.titleEn)} · PDF p.${esc(a.page)}</span></summary>
+      <div class="abody">${paragraphs(a.body)}${a.bodyEn ? `<details class="orig"><summary>英文原文</summary><p>${esc(a.bodyEn)}</p></details>` : ""}</div></details>`).join("")}`;
+}
+
+// ---------- 新增 ----------
+const CSV_COLS = [["編號", () => ""], ["名稱", "name"], ["目的", "purpose"], ["部位", "part"], ["技術要點", "keyPoints"], ["影片連結", it => it.videos[0] || ""], ["備註", "note"], ["新增日期", "createdAt"]];
+function rowsOf(list) { return list.map(it => CSV_COLS.map(([, f]) => typeof f === "function" ? f(it) : (it[f] || ""))); }
+function renderAdd() {
+  const parts = [...new Set(DATA.items.map(it => it.part).filter(Boolean))];
+  $("#app").innerHTML = `
+    <h2 class="view-title">新增訓練項目</h2>
+    <p class="small muted">新增的項目只會存在<b>這台裝置的瀏覽器</b>。要讓全隊看到,請按下方「匯出」傳給教練,由教練加進 Excel 後重新產生網頁。</p>
+    <form class="card" id="addForm" autocomplete="off">
+      <label class="f">名稱 *<input name="name" required maxlength="60" placeholder="例如:內野反手接球"></label>
+      <label class="f">目的<select name="purpose">${DATA.purposes.map(p => `<option>${esc(p)}</option>`).join("")}</select></label>
+      <label class="f">部位<input name="part" list="partList" maxlength="20" placeholder="例如:下肢"><datalist id="partList">${parts.map(p => `<option value="${esc(p)}">`).join("")}</datalist></label>
+      <label class="f">技術要點<textarea name="keyPoints" maxlength="300" placeholder="要注意的重點"></textarea></label>
+      <label class="f">影片連結<input name="video" type="url" inputmode="url" placeholder="https://www.instagram.com/…"><span class="hint">支援 YouTube、Instagram、Facebook 等網址</span></label>
+      <label class="f">備註<input name="note" maxlength="100" placeholder="例如:新生先做"></label>
+      <div class="btn-row"><button class="btn primary" type="submit">儲存到本機</button></div>
+    </form>
+    <h2 class="view-title" style="margin-top:22px">本機新增(${localItems.length})</h2>
+    <div class="list" id="localList">${localItems.length ? localItems.map(it => `<a class="card item" href="#/item/${encodeURIComponent(it.id)}"><div class="meta"><span class="tag">${esc(it.purpose)}</span><span class="muted">${esc(it.createdAt)}</span>${it.videos.length ? '<span class="vid">▶ 影片</span>' : ""}</div><h3>${esc(it.name)}</h3>${it.keyPoints ? `<p class="kp">${esc(it.keyPoints)}</p>` : ""}</a>`).join("") : '<div class="card empty">還沒有本機新增的項目</div>'}</div>
+    ${localItems.length ? `<div class="btn-row">
+      <button class="btn primary" data-act="copy">複製(可直接貼到 Excel)</button>
+      <button class="btn" data-act="csv">下載 CSV</button>
+      <button class="btn danger" data-act="clear">清除全部本機新增</button></div>` : ""}`;
+  $("#addForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const video = String(f.get("video") || "").trim();
+    localItems.push({
+      id: "L-" + Date.now().toString(36), num: "", source: "本機新增", name: String(f.get("name")).trim(), nameEn: "",
+      purpose: String(f.get("purpose") || ""), part: String(f.get("part") || "").trim(), keyPoints: String(f.get("keyPoints") || "").trim(),
+      videos: video ? [video] : [], note: String(f.get("note") || "").trim(), related: [], equipment: [],
+      createdAt: new Date().toLocaleDateString("sv-SE"),
+    });
+    store.set(LOCAL_KEY, localItems); reindex(); toast("已儲存到本機"); renderAdd();
+  });
+  $("#app").onclick = async e => {
+    const b = e.target.closest("[data-act]"); if (!b) return;
+    if (b.dataset.act === "copy") {
+      const tsv = rowsOf(localItems).map(r => r.map(v => String(v).replace(/[\t\n]/g, " ")).join("\t")).join("\n");
+      try { await navigator.clipboard.writeText(tsv); }
+      catch { const ta = document.createElement("textarea"); ta.value = tsv; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); }
+      toast("已複製,可貼到 Excel「訓練項目」最下方");
+    } else if (b.dataset.act === "csv") {
+      const q = v => `"${String(v).replace(/"/g, '""')}"`;
+      const csv = "﻿" + [CSV_COLS.map(c => c[0])].concat(rowsOf(localItems)).map(r => r.map(q).join(",")).join("\r\n");
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+      a.download = `新增訓練項目_${new Date().toLocaleDateString("sv-SE")}.csv`;
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    } else if (b.dataset.act === "clear" && confirm(`確定清除全部 ${localItems.length} 個本機新增項目?清除後無法復原,建議先匯出。`)) {
+      localItems = []; store.del(LOCAL_KEY); reindex(); toast("已清除"); renderAdd();
+    }
+  };
+}
+
+// ---------- 路由 ----------
+const RENDER = { items: renderItems, menus: renderMenus, dl: renderDL, learn: renderLearn, add: renderAdd };
+const TITLES = Object.fromEntries(TABS);
+let lastTabHash = "";
+function go(h) { if (location.hash === h) { lastTabHash = ""; route(); } else location.hash = h; }
+function syncHeader() { document.documentElement.style.setProperty("--hdr", $("header.top").offsetHeight + "px"); }
+window.addEventListener("resize", syncHeader); syncHeader();
+function route() {
+  const raw = location.hash.slice(1) || "/items";
+  const [path, qs] = raw.split("?");
+  const parts = path.split("/").filter(Boolean);
+  if (parts[0] === "item") {
+    if (!lastTabHash) { lastTabHash = "#/items"; renderTab("items", new URLSearchParams()); }
+    openSheet(decodeURIComponent(parts.slice(1).join("/")));
+    return;
+  }
+  closeSheetUI();
+  navFromApp = false;
+  const tab = RENDER[parts[0]] ? parts[0] : "items";
+  const h = "#" + raw;
+  if (h === lastTabHash && $("#app").childElementCount) return;
+  lastTabHash = h;
+  renderTab(tab, new URLSearchParams(qs || ""));
+  window.scrollTo(0, 0);
+}
+function renderTab(tab, q) {
+  $("#app").onclick = null; $("#app").onchange = null;
+  RENDER[tab](q);
+  $("#sub").textContent = TITLES[tab];
+  document.querySelectorAll("#tabs a").forEach(a => a.classList.toggle("on", a.dataset.tab === tab));
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="#/item/"]');
+  if (a) navFromApp = true;
+});
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
