@@ -1,0 +1,63 @@
+{
+ "回饋表單": {
+  "action": "https://docs.google.com/forms/d/e/1FAIpQLSdH6exjGNZmVH0sa6wKBPb6gVnQ9wQAptcIXkQLJV3AKcNpBg/formResponse",
+  "fields": {
+   "name": {
+    "entry": "entry.1825869908",
+    "title": "你的名字",
+    "options": []
+   },
+   "content": {
+    "entry": "entry.1073124322",
+    "title": "想說的話或建議",
+    "options": []
+   }
+  }
+ },
+ "新增表單": {
+  "action": "https://docs.google.com/forms/d/e/1FAIpQLScQlTRaMyKzapIxZ_KQbpT27ryJXy2w3TfuR_1lsdyQ3dT2qw/formResponse",
+  "fields": {
+   "name": {
+    "entry": "entry.1083228334",
+    "title": "名稱",
+    "options": []
+   },
+   "purpose": {
+    "entry": "entry.1811503396",
+    "title": "目的",
+    "options": [
+     "打擊",
+     "投球",
+     "守備",
+     "跑壘",
+     "知識",
+     "其他"
+    ]
+   },
+   "part": {
+    "entry": "entry.1447768793",
+    "title": "部位",
+    "options": [
+     "上肢",
+     "下肢",
+     "全身"
+    ]
+   },
+   "keyPoints": {
+    "entry": "entry.1306053216",
+    "title": "技術要點",
+    "options": []
+   },
+   "video": {
+    "entry": "entry.186147153",
+    "title": "影片連結",
+    "options": []
+   },
+   "note": {
+    "entry": "entry.849747267",
+    "title": "備註",
+    "options": []
+   }
+  }
+ }
+}

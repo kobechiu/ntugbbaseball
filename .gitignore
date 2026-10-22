@@ -1,0 +1,16 @@
+# 由 tools/build.py 產生,GitHub Actions 會自動建置,不要手動修改
+index.html
+
+# 有版權或與本專案無關的檔案,不可上傳
+*.pdf
+椰林.xls
+
+# 已被「棒球訓練2026_整合.xlsx」取代的原始檔,以及只在建立整合檔時用過的一次性工具
+棒球訓練2026.xlsx
+tools/make_integrated.py
+
+# Excel 開啟中的暫存檔、系統檔
+~$*
+.~lock*
+.DS_Store
+__pycache__/

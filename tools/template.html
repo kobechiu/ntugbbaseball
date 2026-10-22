@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16325c">
+<title>棒球訓練手冊</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23fff' stroke='%2316325c' stroke-width='2'/%3E%3Cpath d='M9 6c3 2.6 4.6 6 4.6 10S12 23.4 9 26M23 6c-3 2.6-4.6 6-4.6 10s1.6 7.4 4.6 10' fill='none' stroke='%23c8102e' stroke-width='2'/%3E%3C/svg%3E">
+<meta name="apple-mobile-web-app-title" content="棒球訓練">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<style>
+:root{
+  --bg:#f5f2eb;--card:#fff;--ink:#1b2333;--muted:#667085;--line:#e4dfd3;
+  --navy:#16325c;--navy-ink:#fff;--accent:#c8102e;--chip:#edf0f5;--chip-on:#16325c;--chip-on-ink:#fff;
+  --dl:#f59e0b;--ok:#15803d;--shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
+  --r:14px;--nav-h:62px;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0e131b;--card:#171f2b;--ink:#e7ebf1;--muted:#98a2b3;--line:#273142;--navy:#0f2547;--navy-ink:#eef3ff;
+    --accent:#ff5c72;--chip:#222c3b;--chip-on:#9db8ff;--chip-on-ink:#0e131b;--shadow:none}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 12px)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:860px;margin:0 auto;padding:0 14px}
+header.top{position:sticky;top:0;z-index:20;background:var(--navy);color:var(--navy-ink);padding:calc(env(safe-area-inset-top) + 10px) 0 10px}
+header.top .wrap{display:flex;align-items:center;gap:10px}
+.logo{width:30px;height:30px;flex:none}
+header.top h1{font-size:18px;margin:0;letter-spacing:.5px}
+header.top .sub{font-size:12px;opacity:.75}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--line);
+  display:flex;padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:var(--nav-h);
+  text-decoration:none;font-size:12px;color:var(--muted)}
+nav.tabs a svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs a.on{color:var(--accent);font-weight:600}
+@media (min-width:768px){
+  body{padding-bottom:24px}
+  nav.tabs{position:sticky;top:var(--hdr,58px);bottom:auto;border-top:0;border-bottom:1px solid var(--line);z-index:19}
+  nav.tabs a{flex-direction:row;height:46px;font-size:14px;gap:6px}
+  nav.tabs a svg{width:18px;height:18px}
+}
+main{padding-top:14px;min-height:60vh}
+h2.view-title{font-size:20px;margin:4px 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid transparent;background:var(--chip);border-radius:999px;padding:6px 12px;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--chip-on);color:var(--chip-on-ink)}
+.chip .n{opacity:.6;font-size:12px;margin-left:3px}
+.seg{display:flex;background:var(--chip);border-radius:12px;padding:3px;gap:3px;margin-bottom:10px}
+.seg button{flex:1;border:0;background:none;border-radius:9px;padding:8px 6px;font-size:14px;cursor:pointer;white-space:nowrap}
+.seg button.on{background:var(--card);box-shadow:var(--shadow);font-weight:600}
+.search{position:sticky;top:var(--hdr,58px);z-index:10;background:var(--bg);padding:6px 0 4px}
+@media (min-width:768px){.search{top:calc(var(--hdr,58px) + 46px)}}
+.search input{width:100%;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:11px 14px 11px 38px;font-size:16px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%23889' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='8' cy='8' r='6'/%3E%3Cpath d='m13 13 4 4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:12px center}
+.filters{display:flex;gap:8px;align-items:center;margin:4px 0 6px}
+.filters select{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:6px 8px;font-size:14px}
+.count{font-size:13px;color:var(--muted);margin:6px 2px 8px}
+.list{display:grid;gap:10px}
+@media (min-width:768px){.list.grid2{grid-template-columns:1fr 1fr}}
+a.item{display:block;text-decoration:none;padding:12px 14px}
+div.card.item{padding:12px 14px}
+div.card.item .kp{margin:4px 0 0;font-size:14px}
+a.item:active{transform:scale(.995)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px}
+.num{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;opacity:.8}
+.grp{grid-column:1/-1;margin:10px 2px 0;font-size:15px;display:flex;align-items:baseline;gap:6px}
+.grp:first-child{margin-top:0}
+.grp span{font-size:12px;color:var(--muted);font-weight:400}
+.tag{display:inline-block;border-radius:6px;padding:1px 7px;font-size:12px;background:var(--chip)}
+.tag.src-dl{background:color-mix(in srgb,var(--dl) 20%,transparent);color:color-mix(in srgb,var(--dl) 70%,var(--ink))}
+.tag.warn{background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent)}
+.vid{margin-left:auto;font-size:12px;color:var(--accent);font-weight:600}
+a.item h3{font-size:16px;margin:5px 0 2px}
+a.item h3 small,.en{font-weight:400;color:var(--muted);font-size:13px;margin-left:4px}
+a.item .kp{margin:2px 0 0;font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+a.item .note{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+/* menus */
+.group{padding:14px;margin-bottom:12px}
+.group h3{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:8px}
+ol.steps{list-style:none;margin:0;padding:0;position:relative}
+ol.steps>li{display:flex;gap:12px;position:relative;padding-bottom:14px}
+ol.steps>li:not(:last-child)::before{content:"";position:absolute;left:13px;top:28px;bottom:0;width:2px;background:var(--line)}
+.step-n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--navy);color:var(--navy-ink);display:grid;place-items:center;font-size:13px;font-weight:700}
+@media (prefers-color-scheme:dark){.step-n{background:var(--chip-on);color:var(--chip-on-ink)}}
+.step-b{flex:1;min-width:0;padding-top:3px}
+.step-b h4{margin:0;font-size:15px}
+.step-b .note{font-size:13px;color:var(--muted);margin:2px 0 0}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center}
+a.pill{text-decoration:none;border:1px solid var(--line);background:var(--bg);border-radius:9px;padding:4px 9px;font-size:13px;max-width:100%}
+a.pill i{font-style:normal;font-size:11px;color:var(--muted);margin-left:4px}
+.any{font-size:11px;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:1px 6px}
+.branch{margin-top:8px;padding:8px 10px;border-left:3px solid var(--line);background:color-mix(in srgb,var(--chip) 60%,transparent);border-radius:0 9px 9px 0}
+.branch .bt{font-size:14px;font-weight:600}
+.branch .tag{margin-right:6px}
+/* driveline */
+.weeks{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.weeks button{flex:none;min-width:46px;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:6px 8px;cursor:pointer;font-weight:600}
+.weeks button.on{background:var(--chip-on);color:var(--chip-on-ink);border-color:transparent}
+.phase{font-size:13px;color:var(--muted);margin:6px 2px 8px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:14px}
+.day{border:0;border-radius:10px;padding:7px 2px;min-height:62px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  background:var(--wc,var(--chip));color:var(--wt,var(--muted));font-size:13px;font-weight:700;line-height:1.2;text-align:center}
+.day small{font-size:10px;font-weight:500;opacity:.8}
+.day.rest{background:var(--chip);color:var(--muted);font-weight:500}
+.day.on{outline:3px solid var(--ink);outline-offset:1px}
+.workout{overflow:hidden;margin-bottom:12px}
+.workout>header{padding:12px 14px;background:var(--wc);color:var(--wt)}
+.workout>header h3{margin:0;font-size:17px}
+.workout>header small{opacity:.85}
+.wbody{padding:12px 14px}
+.wbody details{margin-bottom:8px}
+.wbody summary{cursor:pointer;font-size:14px;color:var(--muted)}
+.wstats{display:flex;gap:12px;font-size:13px;color:var(--muted);margin:4px 0 6px;flex-wrap:wrap}
+.seg-title{font-size:13px;font-weight:700;letter-spacing:1px;color:var(--muted);margin:12px 0 6px;text-transform:uppercase}
+ul.drills{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+li.drill{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--bg)}
+li.drill.done{opacity:.55}
+li.drill.done .dname{text-decoration:line-through}
+li.drill input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--ok);flex:none}
+.dmain{flex:1;min-width:0}
+.dname{font-weight:600;text-decoration:none}
+.dmeta{font-size:13px;color:var(--muted);margin-top:2px}
+.subst{font-size:12px;color:var(--ok);margin-top:2px}
+.dnum{flex:none;text-align:right}
+.dnum b{display:block;font-size:17px;font-variant-numeric:tabular-nums}
+.int{font-size:12px;color:var(--muted)}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:9px 14px;cursor:pointer;font-size:14px}
+.btn.primary{background:var(--navy);color:var(--navy-ink);border-color:transparent}
+@media (prefers-color-scheme:dark){.btn.primary{background:var(--chip-on);color:var(--chip-on-ink)}}
+.btn.danger{color:var(--accent)}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.eq{padding:12px 14px}
+.eq h4{margin:0;font-size:15px}
+/* learn */
+details.article{padding:0;margin-bottom:10px}
+details.article>summary{list-style:none;cursor:pointer;padding:13px 14px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+details.article>summary::-webkit-details-marker{display:none}
+details.article>summary::after{content:"＋";margin-left:auto;color:var(--muted)}
+details.article[open]>summary::after{content:"－"}
+.abody{padding:0 14px 14px;font-size:15px}
+.abody p{margin:0 0 10px}
+.abody .hd{font-weight:700;color:var(--navy)}
+@media (prefers-color-scheme:dark){.abody .hd{color:var(--chip-on)}}
+details.orig{margin-top:6px;border-top:1px dashed var(--line);padding-top:8px}
+details.orig summary{cursor:pointer;font-size:13px;color:var(--muted)}
+details.orig p{font-size:13px;color:var(--muted)}
+.intro{padding:14px;margin-bottom:12px}
+.intro p{margin:0 0 8px}
+/* form */
+form.card{padding:14px;display:grid;gap:12px}
+label.f{display:grid;gap:4px;font-size:14px;font-weight:600}
+label.f input,label.f select,label.f textarea{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 11px;font-size:16px;font-weight:400}
+label.f textarea{min-height:70px;resize:vertical}
+.hint{font-size:13px;color:var(--muted);font-weight:400}
+/* sheet */
+.sheet-bg{position:fixed;inset:0;background:rgba(10,15,25,.45);z-index:40;opacity:0;pointer-events:none;transition:opacity .2s}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;background:var(--card);border-radius:18px 18px 0 0;max-height:92vh;overflow:auto;
+  transform:translateY(100%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s;padding-bottom:env(safe-area-inset-bottom);overscroll-behavior:contain}
+.sheet.open{transform:none;visibility:visible;transition:transform .25s ease}.sheet-bg.open{opacity:1;pointer-events:auto}
+@media (min-width:768px){.sheet{left:50%;width:640px;margin-left:-320px;bottom:auto;top:6vh;border-radius:18px;max-height:88vh;transform:translateY(20px);opacity:0;pointer-events:none;transition:.2s}
+  .sheet.open{transform:none;opacity:1;pointer-events:auto}}
+.sheet-h{position:sticky;top:0;background:var(--card);display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line);z-index:1}
+.sheet-h .x{margin-left:auto;border:0;background:var(--chip);border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:18px;line-height:1}
+.sheet-c{padding:14px}
+.sheet-c h2{margin:4px 0 2px;font-size:21px}
+.sec{margin-top:16px}
+.sec h4{margin:0 0 6px;font-size:13px;color:var(--muted);letter-spacing:1px}
+.sec p{margin:0}
+.video{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:16/9}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video button{position:absolute;inset:0;border:0;background:linear-gradient(135deg,#16325c,#0b1a33);color:#fff;font-size:16px;cursor:pointer;display:grid;place-items:center}
+.video button span{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);padding:10px 18px;border-radius:999px}
+.vlinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+a.ext{display:inline-flex;align-items:center;gap:6px;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:14px;font-weight:600}
+a.ext.ig{color:#c13584}a.ext.fb{color:#1877f2}a.ext.yt{color:#e00}
+ul.usage{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+ul.usage a{display:block;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:14px}
+footer.foot{max-width:860px;margin:24px auto 0;padding:0 14px;font-size:12px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + 20px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);
+  padding:9px 16px;border-radius:999px;font-size:14px;opacity:0;transition:.2s;z-index:60;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#fff"/><path d="M8.5 6.5c3 2.6 4.6 6 4.6 9.5s-1.6 6.9-4.6 9.5M23.5 6.5c-3 2.6-4.6 6-4.6 9.5s1.6 6.9 4.6 9.5" fill="none" stroke="#c8102e" stroke-width="1.6" stroke-dasharray="2 1.6"/></svg>
+    <div><h1>棒球訓練手冊</h1><div class="sub" id="sub"></div></div>
+  </div>
+</header>
+<nav class="tabs" id="tabs"></nav>
+<main class="wrap" id="app"></main>
+<footer class="foot wrap" id="foot"></footer>
+<div class="sheet-bg" id="sheetBg"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast"></div>
+
+<script type="application/json" id="data">/*__DATA__*/</script>
+<script>
+"use strict";
+const DATA = JSON.parse(document.getElementById("data").textContent);
+const $ = (s, el = document) => el.querySelector(s);
+const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+  del(k) { try { localStorage.removeItem(k); } catch {} },
+};
+const SRC = { "教練": "教練", "Driveline-打擊": "Driveline 打擊" };
+const INTENSITY = { "Game Like": "比賽強度" };
+
+let byId = {};
+function allItems() { return DATA.items; }
+function reindex() { byId = {}; allItems().forEach(it => byId[it.id] = it); }
+reindex();
+
+const eqZh = en => (DATA.equipment[en] && DATA.equipment[en].zh) || en;
+const envZh = en => DATA.env[en] || en;
+const shortWorkout = w => w.nameZh.split("(")[0].replace(/\s+/g, "");
+const workoutByCode = Object.fromEntries(DATA.workouts.map(w => [w.code, w]));
+
+function textOn(hex) {
+  const n = parseInt(hex.replace("#", ""), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  return (0.299 * r + 0.587 * g + 0.114 * b) > 160 ? "#1b2333" : "#fff";
+}
+
+// 反查:每個項目出現在哪些菜單/課表
+const usage = {};
+function addUse(id, u) { (usage[id] = usage[id] || []).push(u); }
+DATA.menus.forEach(m => m.steps.forEach(st => {
+  const link = `#/menus?sheet=${encodeURIComponent(m.sheet)}&aud=${encodeURIComponent(m.audience)}`;
+  const base = `${m.sheet} › ${m.audience} › ${m.category}`;
+  st.itemIds.forEach(id => addUse(id, { text: `${base} › ${st.title}`, link }));
+  st.branches.forEach(b => b.itemIds.forEach(id => addUse(id, { text: `${base} › ${st.title} › ${b.label}:${b.title}`, link })));
+}));
+DATA.workouts.forEach(w => [["warmup", "熱身"], ["skill", "技術"]].forEach(([k, lab]) => w[k].forEach(r => addUse(r.itemId, {
+  text: `Driveline ${w.nameZh} › ${lab} › ${eqZh(r.bat)} ${r.sets}×${r.reps} ${INTENSITY[r.intensity] || r.intensity}`,
+  link: `#/dl?tab=list&w=${encodeURIComponent(w.code)}`,
+}))));
+
+// ---------- 影片 ----------
+function videoInfo(url) {
+  let u; try { u = new URL(url); } catch { return { kind: "other", url }; }
+  const host = u.hostname.replace(/^(www|m)\./, "");
+  if (host === "youtu.be") return { kind: "yt", id: u.pathname.slice(1), url };
+  if (host.endsWith("youtube.com")) {
+    if (u.searchParams.get("v")) return { kind: "yt", id: u.searchParams.get("v"), url };
+    const s = u.pathname.match(/\/(shorts|embed|live)\/([\w-]+)/); if (s) return { kind: "yt", id: s[2], url };
+    if (u.searchParams.get("list")) return { kind: "ytlist", id: u.searchParams.get("list"), url };
+  }
+  if (host.endsWith("instagram.com")) return { kind: "ig", url };
+  if (host.endsWith("facebook.com") || host === "fb.watch") return { kind: "fb", url };
+  return { kind: "other", url };
+}
+function videoBlock(url, i) {
+  const v = videoInfo(url);
+  const ext = { yt: ["yt", "在 YouTube 開啟"], ytlist: ["yt", "在 YouTube 開啟播放清單"], ig: ["ig", "在 Instagram 開啟"], fb: ["fb", "在 Facebook 開啟"], other: ["", "開啟連結"] }[v.kind];
+  const link = `<a class="ext ${ext[0]}" href="${esc(v.url)}" target="_blank" rel="noopener">${ext[1]} ↗</a>`;
+  if (v.kind === "yt" || v.kind === "ytlist") {
+    const src = v.kind === "yt" ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?autoplay=1&rel=0&playsinline=1`
+      : `https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(v.id)}&autoplay=1`;
+    const fileNote = location.protocol === "file:" ? `<div class="hint small" style="margin-top:6px">直接開啟檔案時 YouTube 可能無法內嵌播放,請改按「在 YouTube 開啟」。</div>` : "";
+    return `<div class="video" data-src="${esc(src)}"><button type="button" data-play="${i}"><span>▶ 播放影片</span></button></div><div class="vlinks">${link}</div>${fileNote}`;
+  }
+  return `<div class="vlinks">${link}</div>`;
+}
+
+// ---------- 共用 ----------
+const ICONS = {
+  items: '<path d="M4 5h16M4 12h16M4 19h10"/>',
+  menus: '<path d="M6 4v16M6 6h10l-2 3 2 3H6"/>',
+  dl: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  learn: '<path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h6"/>',
+  add: '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+};
+const TABS = [["items", "項目庫"], ["menus", "隊內菜單"], ["dl", "Driveline"], ["learn", "知識"], ["add", "回饋・新增"]];
+const PARTS = ["上肢", "下肢", "全身"];
+const numLabel = it => it.id.startsWith("D-") ? it.id : "#" + it.id;
+$("#tabs").innerHTML = TABS.map(([k, t]) => `<a href="#/${k}" data-tab="${k}"><svg viewBox="0 0 24 24">${ICONS[k]}</svg>${t}</a>`).join("");
+$("#foot").innerHTML = `資料更新:${esc(DATA.builtAt)}・教練項目來自《棒球訓練2026》・Driveline 內容翻譯自 Driveline Baseball《6 Week In-Season &amp; Off-Season Hitting Program》,僅供隊內訓練使用,原始資料請見 <a href="https://www.drivelinebaseball.com/" target="_blank" rel="noopener">drivelinebaseball.com</a>。`;
+
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 1800); }
+function chip(label, on, attrs = "", n) { return `<button type="button" class="chip${on ? " on" : ""}" ${attrs}>${esc(label)}${n != null ? `<span class="n">${n}</span>` : ""}</button>`; }
+function srcTag(it) {
+  if (it.source === "教練") return "";
+  return `<span class="tag src-dl">${esc(SRC[it.source] || it.source)}</span>`;
+}
+function pill(id) {
+  const it = byId[id]; if (!it) return "";
+  return `<a class="pill" href="#/item/${encodeURIComponent(id)}">${esc(it.name)}${it.videos.length ? " ▸" : ""}<i>${esc(numLabel(it))}</i></a>`;
+}
+function pills(ids) {
+  if (!ids.length) return "";
+  return `<div class="pills">${ids.length > 1 ? '<span class="any">任選</span>' : ""}${ids.map(pill).join("")}</div>`;
+}
+function paragraphs(text) {
+  return text.split(/\n\s*\n/).map(p => {
+    const html = esc(p).replace(/【(.+?)】/g, '<span class="hd">$1</span> ').replace(/\n/g, "<br>");
+    return `<p>${html}</p>`;
+  }).join("");
+}
+
+// ---------- 項目庫 ----------
+const itemState = { q: "", src: "", purpose: DATA.purposes.find(p => DATA.items.some(it => it.purpose === p)) || "", part: "" };
+const partRank = p => { const i = PARTS.indexOf(p); return i < 0 ? PARTS.length : i; };
+function itemMatches(it, st, skip) {
+  if (skip !== "src" && st.src && it.source !== st.src) return false;
+  if (skip !== "purpose" && st.purpose && it.purpose !== st.purpose) return false;
+  if (skip !== "part" && st.part && it.part !== st.part) return false;
+  if (st.q) {
+    const hay = [it.id, it.name, it.nameEn, it.purpose, it.part, it.keyPoints, it.note].join(" ").toLowerCase();
+    if (!st.q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w))) return false;
+  }
+  return true;
+}
+function renderItems(q) {
+  ["src", "purpose", "q", "part"].forEach(k => { if (q.has(k)) itemState[k] = q.get(k); });
+  $("#app").innerHTML = `
+    <div class="search"><input id="q" type="search" placeholder="搜尋名稱、技術要點、備註、英文…" value="${esc(itemState.q)}" autocomplete="off"></div>
+    <div id="filters"></div><div class="count" id="count"></div><div class="list grid2" id="list"></div>`;
+  $("#q").addEventListener("input", e => { itemState.q = e.target.value.trim(); drawItems(); });
+  $("#filters").addEventListener("click", e => {
+    const b = e.target.closest("[data-f]"); if (!b) return;
+    const k = b.dataset.f, v = b.dataset.v;
+    itemState[k] = k === "purpose" ? v : (itemState[k] === v ? "" : v);
+    drawItems();
+  });
+  drawItems();
+}
+function itemCard(it) {
+  return `<a class="card item" href="#/item/${encodeURIComponent(it.id)}">
+    <div class="meta">${it.purpose ? `<span class="tag">${esc(it.purpose)}</span>` : ""}${srcTag(it)}${it.videos.length ? '<span class="vid">▶ 影片</span>' : ""}</div>
+    <h3>${esc(it.name)}${it.nameEn && it.nameEn !== it.name ? `<small>${esc(it.nameEn)}</small>` : ""} <span class="num">${esc(numLabel(it))}</span></h3>
+    ${it.keyPoints ? `<p class="kp">${esc(it.keyPoints)}</p>` : ""}
+    ${it.note ? `<p class="note">備註:${esc(it.note)}</p>` : ""}
+  </a>`;
+}
+function drawItems() {
+  const items = allItems();
+  const cnt = (skip, key) => items.reduce((m, it) => { if (itemMatches(it, itemState, skip)) m[it[key]] = (m[it[key]] || 0) + 1; return m; }, {});
+  const srcN = cnt("src", "source"), purN = cnt("purpose", "purpose"), partN = cnt("part", "part");
+  const sources = Object.keys(SRC).filter(s => items.some(it => it.source === s));
+  const allPurposes = DATA.purposes.concat([...new Set(items.map(it => it.purpose))].filter(p => !DATA.purposes.includes(p)));
+  const purposes = allPurposes.filter(p => p && (items.some(it => it.purpose === p) || itemState.purpose === p));
+  if (!purposes.includes(itemState.purpose)) itemState.purpose = purposes[0] || "";
+  $("#filters").innerHTML = `
+    <div class="chips">${purposes.map(p => chip(p, itemState.purpose === p, `data-f="purpose" data-v="${esc(p)}"`, purN[p] || 0)).join("")}</div>
+    <div class="chips">${chip("全部部位", !itemState.part, 'data-f="part" data-v=""')}${PARTS.map(p => chip(p, itemState.part === p, `data-f="part" data-v="${p}"`, partN[p] || 0)).join("")}</div>
+    <div class="chips">${chip("全部來源", !itemState.src, 'data-f="src" data-v=""')}${sources.map(s => chip(SRC[s], itemState.src === s, `data-f="src" data-v="${esc(s)}"`, srcN[s] || 0)).join("")}</div>`;
+  const shown = items.map((it, i) => [it, i]).filter(([it]) => itemMatches(it, itemState))
+    .sort((a, b) => partRank(a[0].part) - partRank(b[0].part) || a[1] - b[1]).map(([it]) => it);
+  $("#count").textContent = `共 ${shown.length} 項`;
+  if (!shown.length) { $("#list").innerHTML = `<div class="empty card">找不到符合的項目,試試其他關鍵字或切換上方分類。</div>`; return; }
+  let html = "", cur = null;
+  for (const it of shown) {
+    const p = it.part || "未標部位";
+    if (p !== cur) { cur = p; html += `<h3 class="grp">${esc(p)}<span>${shown.filter(x => (x.part || "未標部位") === p).length} 項</span></h3>`; }
+    html += itemCard(it);
+  }
+  $("#list").innerHTML = html;
+}
+
+// ---------- 項目詳細 ----------
+function openSheet(id) {
+  const it = byId[id];
+  const sh = $("#sheet");
+  if (!it) {
+    sh.innerHTML = `<div class="sheet-h"><b>找不到項目</b><button class="x" data-close aria-label="關閉">×</button></div><div class="sheet-c"><p>項目「${esc(id)}」不存在,可能已更新編號。</p></div>`;
+  } else {
+    const uses = usage[it.id] || [];
+    const eq = (it.equipment || []).map(en => {
+      const e = DATA.equipment[en] || {};
+      return `<li>${esc(eqZh(en))} <span class="en">${esc(en)}</span>${e.substitute ? `<div class="subst">替代:${esc(e.substitute)}</div>` : ""}</li>`;
+    }).join("");
+    sh.innerHTML = `
+      <div class="sheet-h"><span class="num">${esc(numLabel(it))}</span>${srcTag(it)}<button class="x" data-close aria-label="關閉">×</button></div>
+      <div class="sheet-c">
+        <h2>${esc(it.name)}</h2>${it.nameEn && it.nameEn !== it.name ? `<div class="muted">${esc(it.nameEn)}</div>` : ""}
+        <div class="meta" style="margin-top:8px">${it.purpose ? `<span class="tag">${esc(it.purpose)}</span>` : ""}${it.part ? `<span class="tag">部位:${esc(it.part)}</span>` : ""}</div>
+        ${it.keyPoints ? `<div class="sec"><h4>技術要點</h4><p>${esc(it.keyPoints)}</p></div>` : ""}
+        <div class="sec"><h4>影片</h4>${it.videos.length ? it.videos.map(videoBlock).join("") : '<p class="muted small">沒有影片連結</p>'}</div>
+        ${it.note ? `<div class="sec"><h4>備註</h4><p>${esc(it.note)}</p></div>` : ""}
+        ${eq ? `<div class="sec"><h4>使用器材</h4><ul style="margin:0;padding-left:18px">${eq}</ul></div>` : ""}
+        ${it.related && it.related.length ? `<div class="sec"><h4>相關項目</h4>${pills(it.related).replace('<span class="any">任選</span>', "")}</div>` : ""}
+        ${uses.length ? `<div class="sec"><h4>出現在</h4><ul class="usage">${uses.map(u => `<li><a href="${esc(u.link)}">${esc(u.text)}</a></li>`).join("")}</ul></div>` : ""}
+        <div class="btn-row"><a class="btn" href="#/add?tab=fb&item=${encodeURIComponent(it.id)}">回饋這個項目</a></div>
+      </div>`;
+  }
+  sh.scrollTop = 0;
+  sh.classList.add("open"); $("#sheetBg").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeSheetUI() {
+  const sh = $("#sheet");
+  sh.classList.remove("open"); $("#sheetBg").classList.remove("open");
+  document.body.style.overflow = "";
+  sh.querySelectorAll("iframe").forEach(f => f.remove());
+}
+let navFromApp = false;
+function requestClose() {
+  if (navFromApp) history.back(); else location.hash = lastTabHash || "#/items";
+}
+$("#sheetBg").addEventListener("click", requestClose);
+$("#sheet").addEventListener("click", e => {
+  if (e.target.closest("[data-close]")) return requestClose();
+  const play = e.target.closest("[data-play]");
+  if (play) {
+    const box = play.parentElement;
+    box.innerHTML = `<iframe src="${esc(box.dataset.src)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="影片"></iframe>`;
+  }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && $("#sheet").classList.contains("open")) requestClose(); });
+
+// ---------- 隊內菜單 ----------
+const menuState = { sheet: "", aud: "" };
+function renderMenus(q) {
+  const sheets = [...new Set(DATA.menus.map(m => m.sheet))];
+  if (q.get("sheet")) menuState.sheet = q.get("sheet");
+  if (!sheets.includes(menuState.sheet)) menuState.sheet = sheets[0];
+  const inSheet = DATA.menus.filter(m => m.sheet === menuState.sheet);
+  const auds = [...new Set(inSheet.map(m => m.audience))];
+  if (q.get("aud")) menuState.aud = q.get("aud");
+  if (!auds.includes(menuState.aud)) menuState.aud = auds[0];
+  const groups = inSheet.filter(m => m.audience === menuState.aud);
+  $("#app").innerHTML = `
+    <div class="chips" id="sheets">${sheets.map(s => chip(s.replace("組合", ""), s === menuState.sheet, `data-sheet="${esc(s)}"`)).join("")}</div>
+    ${auds.length > 1 ? `<div class="seg" id="auds">${auds.map(a => `<button type="button" class="${a === menuState.aud ? "on" : ""}" data-aud="${esc(a)}">${esc(a)}</button>`).join("")}</div>` : ""}
+    ${groups.map(g => `
+      <section class="card group"><h3>${esc(g.category === "special" ? "位置專項" : g.category)}</h3>
+        <ol class="steps">${g.steps.map((st, i) => `
+          <li><div class="step-n">${i + 1}</div><div class="step-b">
+            <h4>${esc(st.title)}</h4>${st.note ? `<p class="note">${esc(st.note)}</p>` : ""}
+            ${pills(st.itemIds)}
+            ${st.branches.map(b => `<div class="branch"><span class="tag">${esc(b.label)}</span><span class="bt">${esc(b.title)}</span>${b.note ? `<p class="note">${esc(b.note)}</p>` : ""}${pills(b.itemIds)}</div>`).join("")}
+          </div></li>`).join("")}
+        </ol></section>`).join("")}`;
+  $("#app").onclick = e => {
+    const s = e.target.closest("[data-sheet]"), a = e.target.closest("[data-aud]");
+    if (s) { menuState.sheet = s.dataset.sheet; menuState.aud = ""; go(`#/menus?sheet=${encodeURIComponent(menuState.sheet)}`); }
+    if (a) { menuState.aud = a.dataset.aud; go(`#/menus?sheet=${encodeURIComponent(menuState.sheet)}&aud=${encodeURIComponent(menuState.aud)}`); }
+  };
+}
+
+// ---------- Driveline ----------
+const dlSel = Object.assign({ tab: "cycle", cycle: 0, week: 0, day: 1 }, store.get("bt.dlSel", {}));
+function drillRow(r, checkKey, idx, checked) {
+  const it = byId[r.itemId] || { name: r.itemId, nameEn: "", videos: [] };
+  const sub = [r.bat, r.ball].map(en => DATA.equipment[en] && DATA.equipment[en].substitute ? `${eqZh(en)} → ${DATA.equipment[en].substitute}` : "").filter(Boolean);
+  return `<li class="drill${checked ? " done" : ""}">
+    ${checkKey ? `<input type="checkbox" data-ck="${idx}" ${checked ? "checked" : ""} aria-label="完成 ${esc(it.name)}">` : ""}
+    <div class="dmain"><a class="dname" href="#/item/${encodeURIComponent(r.itemId)}">${esc(it.name)}</a>${it.nameEn && it.nameEn !== it.name ? `<span class="en">${esc(it.nameEn)}</span>` : ""}${it.videos.length ? ' <span class="vid">▶</span>' : ""}
+      <div class="dmeta">${esc(eqZh(r.bat))} · ${esc(eqZh(r.ball))} · ${esc(envZh(r.env))}</div>
+      ${sub.length ? `<div class="subst">替代:${esc(sub.join("、"))}</div>` : ""}</div>
+    <div class="dnum"><b>${esc(r.sets)}×${esc(r.reps)}</b><span class="int">${esc(INTENSITY[r.intensity] || r.intensity)}</span></div></li>`;
+}
+function workoutCard(w, checkKey) {
+  const rows = w.warmup.concat(w.skill);
+  const checks = checkKey ? store.get(checkKey, []) : [];
+  const swings = rows.reduce((s, r) => s + (+r.sets || 0) * (+r.reps || 0), 0);
+  const done = checks.filter(Boolean).length;
+  const wt = textOn(w.color);
+  let i = 0;
+  const seg = (title, list) => `<div class="seg-title">${title}</div><ul class="drills">${list.map(r => drillRow(r, checkKey, i, checks[i++])).join("")}</ul>`;
+  return `<section class="card workout" style="--wc:${esc(w.color)};--wt:${wt}" data-w="${esc(w.code)}">
+    <header><h3>${esc(w.nameZh)}</h3><small>${esc(w.nameEn)}</small></header>
+    <div class="wbody">
+      <details><summary>這天在練什麼?</summary><p class="small">${esc(w.desc)}</p></details>
+      <div class="wstats"><span>共 ${rows.length} 個練習</span><span>總揮棒約 ${swings} 下</span>${checkKey ? `<span>已完成 ${done}/${rows.length}</span>` : ""}</div>
+      ${seg("熱身 Warm-up", w.warmup)}${seg("技術 Skill Work", w.skill)}
+      ${checkKey ? `<div class="btn-row"><button class="btn" data-clear="${esc(checkKey)}">清除這天的勾選</button></div>` : ""}
+    </div></section>`;
+}
+function renderDL(q) {
+  if (q.get("tab")) dlSel.tab = q.get("tab");
+  const focusW = q.get("w");
+  const tabs = [["cycle", "週期課表"], ["list", "課表一覽"], ["eq", "器材"]];
+  let body = "";
+  if (dlSel.tab === "cycle") {
+    dlSel.cycle = Math.min(dlSel.cycle, DATA.cycles.length - 1);
+    const c = DATA.cycles[dlSel.cycle];
+    dlSel.week = Math.min(dlSel.week, c.weeks.length - 1);
+    const wk = c.weeks[dlSel.week];
+    const code = wk.days[dlSel.day];
+    const w = workoutByCode[code];
+    body = `
+      <div class="seg">${DATA.cycles.map((cy, i) => `<button type="button" class="${i === dlSel.cycle ? "on" : ""}" data-cycle="${i}">${esc(cy.name)}</button>`).join("")}</div>
+      <div class="weeks">${c.weeks.map((x, i) => `<button type="button" class="${i === dlSel.week ? "on" : ""}" data-week="${i}">第${esc(x.week)}週</button>`).join("")}</div>
+      <div class="phase">階段:<b>${esc(wk.phase)}</b></div>
+      <div class="days">${wk.days.map((d, i) => {
+        const ww = workoutByCode[d];
+        return ww ? `<button type="button" class="day${i === dlSel.day ? " on" : ""}" style="--wc:${esc(ww.color)};--wt:${textOn(ww.color)}" data-day="${i}"><small>Day ${i + 1}</small>${esc(shortWorkout(ww))}</button>`
+          : `<button type="button" class="day rest${i === dlSel.day ? " on" : ""}" data-day="${i}"><small>Day ${i + 1}</small>${esc(d || "—")}</button>`;
+      }).join("")}</div>
+      ${w ? workoutCard(w, `bt.check.${dlSel.cycle}.${dlSel.week}.${dlSel.day}`) : `<div class="card empty">Day ${dlSel.day + 1} 是<b>${esc(code || "休息")}</b>日,好好恢復。</div>`}
+      <p class="small muted">提示:勾選紀錄只存在這台裝置的瀏覽器。週期與課表原理請看「知識」分頁。</p>`;
+  } else if (dlSel.tab === "list") {
+    body = DATA.workouts.map(w => `<details class="card article" ${w.code === focusW ? "open" : ""} id="w-${esc(w.code)}">
+      <summary><span class="tag" style="background:${esc(w.color)};color:${textOn(w.color)}">${esc(shortWorkout(w))}</span><b>${esc(w.nameZh)}</b>${w.code.endsWith("-OFF") ? '<span class="muted small">休賽季版</span>' : w.code.endsWith("-IN") ? '<span class="muted small">賽季中版</span>' : ""}</summary>
+      <div class="abody">${workoutCard(w, null)}</div></details>`).join("");
+  } else {
+    const used = new Set(DATA.workouts.flatMap(w => w.warmup.concat(w.skill).flatMap(r => [r.bat, r.ball])));
+    body = `<p class="small muted">「替代方案」由教練在 Excel 的「器材」工作表填寫,填好後課表會自動顯示替代器材。</p><div class="list">` +
+      Object.entries(DATA.equipment).map(([en, e]) => `<div class="card eq"><h4>${esc(e.zh)} <span class="en">${esc(en)}</span>${used.has(en) ? "" : ' <span class="tag">原理說明用</span>'}</h4>
+        ${e.desc ? `<div class="small">${esc(e.desc)}</div>` : ""}
+        <div class="small" style="margin-top:4px">${e.substitute ? `<span style="color:var(--ok)">替代方案:${esc(e.substitute)}</span>` : '<span class="muted">替代方案:尚未設定</span>'}</div>
+        ${e.url ? `<div class="small" style="margin-top:4px"><a href="${esc(e.url)}" target="_blank" rel="noopener">Driveline 商品頁 ↗</a></div>` : ""}</div>`).join("") + "</div>";
+  }
+  $("#app").innerHTML = `<div class="seg" id="dltabs">${tabs.map(([k, t]) => `<button type="button" class="${k === dlSel.tab ? "on" : ""}" data-tab="${k}">${t}</button>`).join("")}</div>${body}`;
+  store.set("bt.dlSel", { tab: dlSel.tab, cycle: dlSel.cycle, week: dlSel.week, day: dlSel.day });
+  if (focusW) { const el = document.getElementById("w-" + focusW); if (el) el.scrollIntoView({ block: "start" }); }
+  $("#app").onclick = e => {
+    const t = e.target.closest("#dltabs [data-tab]");
+    if (t) { dlSel.tab = t.dataset.tab; return go("#/dl?tab=" + dlSel.tab); }
+    const cy = e.target.closest("[data-cycle]"); if (cy) { dlSel.cycle = +cy.dataset.cycle; dlSel.week = 0; return renderDL(new URLSearchParams()); }
+    const wk = e.target.closest("[data-week]"); if (wk) { dlSel.week = +wk.dataset.week; return renderDL(new URLSearchParams()); }
+    const d = e.target.closest("[data-day]"); if (d) { dlSel.day = +d.dataset.day; return renderDL(new URLSearchParams()); }
+    const cl = e.target.closest("[data-clear]"); if (cl) { store.del(cl.dataset.clear); toast("已清除勾選"); return renderDL(new URLSearchParams()); }
+  };
+  $("#app").onchange = e => {
+    const ck = e.target.closest("[data-ck]"); if (!ck) return;
+    const card = ck.closest(".workout");
+    const key = card.querySelector("[data-clear]").dataset.clear;
+    const arr = store.get(key, []); arr[+ck.dataset.ck] = ck.checked; store.set(key, arr);
+    ck.closest(".drill").classList.toggle("done", ck.checked);
+    const total = card.querySelectorAll("[data-ck]").length, done = card.querySelectorAll("[data-ck]:checked").length;
+    card.querySelector(".wstats span:last-child").textContent = `已完成 ${done}/${total}`;
+    if (done === total) toast("今天的課表完成了!");
+  };
+}
+
+// ---------- 知識 ----------
+function renderLearn() {
+  $("#app").innerHTML = `
+    <div class="card intro"><p><b>Driveline 打擊課表</b>:先評估打者弱點(揮速/觸球/選球),再依休賽季或賽季中週期安排每天的課表。</p>
+      <p class="small muted">動作的中文名稱是暫譯,英文為原名。所有 Driveline 動作都在項目庫裡,可以用來源篩選。</p>
+      <div class="btn-row"><a class="btn" href="#/items?purpose=${encodeURIComponent("打擊")}&src=${encodeURIComponent("Driveline-打擊")}">看 Driveline 動作</a><a class="btn" href="#/dl?tab=cycle">看週期課表</a></div></div>
+    ${DATA.articles.map(a => `<details class="card article"><summary><b>${esc(a.title)}</b><span class="en">${esc(a.titleEn)} · PDF p.${esc(a.page)}</span></summary>
+      <div class="abody">${paragraphs(a.body)}${a.bodyEn ? `<details class="orig"><summary>英文原文</summary><p>${esc(a.bodyEn)}</p></details>` : ""}</div></details>`).join("")}`;
+}
+
+// ---------- 回饋・新增(送到 Google 表單) ----------
+const FB_TYPES = ["建議", "影片打不開", "內容有誤", "練習心得", "其他"];
+const addState = { tab: "fb" };
+const itemOption = it => `${it.name}(${numLabel(it)})`;
+async function submitForm(kind, values) {
+  const form = DATA.forms[kind];
+  const body = new URLSearchParams();
+  Object.entries(values).forEach(([k, v]) => { if (form.fields[k] && v) body.append(form.fields[k].entry, v); });
+  await fetch(form.action, { method: "POST", mode: "no-cors", body });
+}
+function choiceField(label, name, field, fallback) {
+  const opts = field && field.options.length ? field.options : fallback;
+  return `<label class="f">${label}<select name="${name}">${opts.map(o => `<option>${esc(o)}</option>`).join("")}</select></label>`;
+}
+function renderAdd(q) {
+  if (q.get("tab")) addState.tab = q.get("tab");
+  const kind = addState.tab === "fb" ? "回饋表單" : "新增表單";
+  const form = DATA.forms[kind];
+  const pre = q.get("item") && byId[q.get("item")];
+  let body;
+  if (!form) {
+    body = `<div class="card empty">尚未設定${kind},請在 Excel「設定」工作表填入 Google 表單網址後重新產生網頁。</div>`;
+  } else if (addState.tab === "fb") {
+    body = `<form class="card" id="gform" autocomplete="off">
+        <label class="f">針對哪個項目<input name="item" list="itemList" placeholder="可留空,或輸入名稱搜尋" value="${pre ? esc(itemOption(pre)) : ""}">
+          <datalist id="itemList">${allItems().map(it => `<option value="${esc(itemOption(it))}">`).join("")}</datalist><span class="hint">一般意見可以不選項目</span></label>
+        ${choiceField("類型", "type", form.fields.type, FB_TYPES)}
+        <label class="f">內容 *<textarea name="content" required maxlength="1000" placeholder="例如:這支影片打不開/這個動作練完髖會痠,要注意什麼?"></textarea></label>
+        <label class="f">你的名字<input name="name" maxlength="20" placeholder="選填"></label>
+        <div class="btn-row"><button class="btn primary" type="submit">送出回饋</button></div><div class="hint" id="status"></div>
+      </form>`;
+  } else {
+    const f = form.fields;
+    body = `<form class="card" id="gform" autocomplete="off">
+        <label class="f">名稱 *<input name="name" required maxlength="60" placeholder="例如:內野反手接球"></label>
+        ${choiceField("目的", "purpose", f.purpose, DATA.purposes)}
+        ${choiceField("部位", "part", f.part, PARTS)}
+        <label class="f">技術要點<textarea name="keyPoints" maxlength="300" placeholder="要注意的重點"></textarea></label>
+        <label class="f">影片連結<input name="video" type="url" inputmode="url" placeholder="https://www.instagram.com/…"><span class="hint">支援 YouTube、Instagram、Facebook 等網址</span></label>
+        <label class="f">備註<input name="note" maxlength="200" placeholder="例如:新生先做"></label>
+        <div class="btn-row"><button class="btn primary" type="submit">送出</button></div><div class="hint" id="status"></div>
+      </form>`;
+  }
+  $("#app").innerHTML = `<div class="seg" id="addTabs"><button type="button" class="${addState.tab === "fb" ? "on" : ""}" data-addtab="fb">回饋</button><button type="button" class="${addState.tab === "new" ? "on" : ""}" data-addtab="new">新增項目</button></div>${body}
+    ${form ? `<p class="small muted" style="margin-top:12px">送不出去?也可以<a href="${esc(form.action.replace(/formResponse$/, "viewform"))}" target="_blank" rel="noopener">直接開啟 Google 表單</a>填寫。</p>` : ""}`;
+  $("#app").onclick = e => { const t = e.target.closest("[data-addtab]"); if (t) go("#/add?tab=" + t.dataset.addtab); };
+  const el = $("#gform"); if (!el) return;
+  el.addEventListener("submit", async e => {
+    e.preventDefault();
+    const fd = Object.fromEntries([...new FormData(el)].map(([k, v]) => [k, String(v).trim()]));
+    const values = { ...fd };
+    if (addState.tab === "fb") {
+      const extra = [fd.item && !form.fields.item ? `【項目】${fd.item}` : "", fd.type && !form.fields.type ? `【類型】${fd.type}` : ""].filter(Boolean).join("");
+      values.content = extra ? `${extra}\n${fd.content}` : fd.content;
+    }
+    const btn = el.querySelector("button[type=submit]"), st = $("#status");
+    btn.disabled = true; st.textContent = "送出中…";
+    try {
+      await submitForm(kind, values);
+      el.reset(); if (addState.tab === "fb") el.item.value = "";
+      st.innerHTML = '<span style="color:var(--ok);font-weight:600">✓ 已送出,謝謝!</span>'; toast("已送出");
+    } catch {
+      st.innerHTML = '<span style="color:var(--accent)">送出失敗,請確認網路連線後再試一次。</span>';
+    } finally { btn.disabled = false; }
+  });
+}
+
+// ---------- 路由 ----------
+const RENDER = { items: renderItems, menus: renderMenus, dl: renderDL, learn: renderLearn, add: renderAdd };
+const TITLES = Object.fromEntries(TABS);
+let lastTabHash = "";
+function go(h) { if (location.hash === h) { lastTabHash = ""; route(); } else location.hash = h; }
+function syncHeader() { document.documentElement.style.setProperty("--hdr", $("header.top").offsetHeight + "px"); }
+window.addEventListener("resize", syncHeader); syncHeader();
+function route() {
+  const raw = location.hash.slice(1) || "/items";
+  const [path, qs] = raw.split("?");
+  const parts = path.split("/").filter(Boolean);
+  if (parts[0] === "item") {
+    if (!lastTabHash) { lastTabHash = "#/items"; renderTab("items", new URLSearchParams()); }
+    openSheet(decodeURIComponent(parts.slice(1).join("/")));
+    return;
+  }
+  closeSheetUI();
+  navFromApp = false;
+  const tab = RENDER[parts[0]] ? parts[0] : "items";
+  const h = "#" + raw;
+  if (h === lastTabHash && $("#app").childElementCount) return;
+  lastTabHash = h;
+  renderTab(tab, new URLSearchParams(qs || ""));
+  window.scrollTo(0, 0);
+}
+function renderTab(tab, q) {
+  $("#app").onclick = null; $("#app").onchange = null;
+  RENDER[tab](q);
+  $("#sub").textContent = TITLES[tab];
+  document.querySelectorAll("#tabs a").forEach(a => a.classList.toggle("on", a.dataset.tab === tab));
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="#/item/"]');
+  if (a) navFromApp = true;
+});
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
