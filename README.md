@@ -28,15 +28,75 @@
 > Excel 無法多人同時編輯合併。請**先下載最新版再改**,改完盡快上傳;同一時間只讓一個人改。
 
 ### 開發者:修改網頁或程式
-Fork 本 repo,修改後發 Pull Request。本機預覽:
 
-```bash
-pip install openpyxl
-python3 tools/build.py          # 產生 index.html,並列出資料檢查結果
-python3 -m http.server 8000     # 開 http://localhost:8000(YouTube 內嵌需用 http 開啟)
-```
+> 需要先被加入協作者(Write 權限)。被加入的人修改後**不需要審核**,推送後約 1–2 分鐘網站就會更新,所以改之前請先在自己電腦上預覽確認。
 
-不要直接修改 `index.html`,它是產生出來的檔案(已列入 `.gitignore`)。
+#### 先知道要改哪個檔案
+
+| 想改的東西 | 改這個檔案 |
+|---|---|
+| 網頁的樣子、文字、按鈕、新功能 | `tools/template.html`(HTML、CSS、JavaScript 都在這一個檔案) |
+| 讀取 Excel 的方式、資料檢查規則、Google 表單對應 | `tools/build.py` |
+| 訓練資料本身 | 不用改程式,改 `棒球訓練2026_整合.xlsx`(見上一節) |
+
+**不要改 `index.html`**。它是 `build.py` 用 Excel 和 `template.html` 自動產生的,手動改了也會在下次產生時被蓋掉,而且它不在 repo 裡。
+
+#### 方法一:直接在 GitHub 網頁上改(適合改幾個字)
+
+1. 在 repo 點進 `tools/template.html`
+2. 按右上角的鉛筆圖示(Edit this file)
+3. 修改後按綠色的 **Commit changes**,寫一句說明改了什麼,再按一次 **Commit changes**
+4. 到 **Actions** 分頁,等最新一筆出現綠色勾勾,打開網站確認
+
+這個方法無法先預覽,改錯會直接影響網站。只適合改錯字這類小地方。
+
+#### 方法二:在自己電腦上改(建議)
+
+**第一次準備**(只做一次):
+
+1. 安裝 [Git](https://git-scm.com/downloads) 和 [Python 3](https://www.python.org/downloads/)(Mac 通常已內建 Git)
+2. 打開終端機(Mac 的「終端機」;Windows 的「PowerShell」),逐行執行:
+   ```bash
+   git clone https://github.com/kobechiu/ntugbbaseball.git
+   cd ntugbbaseball
+   pip3 install openpyxl
+   ```
+   完成後,電腦上會多一個 `ntugbbaseball` 資料夾,裡面就是整個專案。
+
+**每次修改的流程**:
+
+1. **下載最新版**(別人可能改過,一定要先做):
+   ```bash
+   cd ntugbbaseball
+   git pull
+   ```
+2. **用任何文字編輯器修改檔案**(推薦 [VS Code](https://code.visualstudio.com/))
+3. **在自己電腦上預覽**:
+   ```bash
+   python3 tools/build.py
+   python3 -m http.server 8000
+   ```
+   用瀏覽器打開 <http://localhost:8000>,確認修改正確。記得用手機尺寸檢查(Chrome 按 F12 → 左上角手機圖示),大部分隊友是用手機看。看完回到終端機按 `Ctrl + C` 關閉預覽。
+4. **上傳到 GitHub**:
+   ```bash
+   git add .
+   git commit -m "用一句話說明改了什麼"
+   git push
+   ```
+   第一次 push 如果要求登入,依畫面指示登入 GitHub 帳號(或先執行 `gh auth login`)。
+5. 到 repo 的 **Actions** 分頁,等最新一筆出現綠色勾勾,打開網站確認。
+
+#### 改壞了怎麼辦
+
+- **Actions 出現紅色叉叉**:點進去看錯誤訊息。這時網站還是上一個正常版本,修正後再 push 一次即可。
+- **網站打得開但壞掉了**:到 repo 首頁點 **commits**(時鐘圖示),找到出問題的那一筆,複製右邊的 7 碼編號(例如 `96966e2`),然後在終端機執行:
+  ```bash
+  git pull
+  git revert --no-edit 96966e2
+  git push
+  ```
+  (把 `96966e2` 換成你複製的編號。)這會新增一筆「取消那次修改」的紀錄,約 1–2 分鐘後網站恢復。不會用終端機的話,請找會的隊友幫忙。
+- **`git push` 被拒絕**(訊息有 `rejected`):代表別人在你之後推送過,先執行 `git pull` 再 `git push`。
 
 ## Excel 工作表說明
 
