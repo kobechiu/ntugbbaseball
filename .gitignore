@@ -14,3 +14,7 @@ tools/make_integrated.py
 .~lock*
 .DS_Store
 __pycache__/
+
+# 原始素材(Pages 檔含影片、體積很大;PDF 有版權)
+*.pages
+待建立的Issue.md
